@@ -1,0 +1,721 @@
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Explore-Movie-Dataset">Explore Movie Dataset<a class="anchor-link" href="#Explore-Movie-Dataset">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">settings</span>
+<span class="kn">import</span> <span class="nn">etl</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="o">%</span><span class="k">load_ext</span> watermark
+<span class="o">%</span><span class="k">watermark</span> -d -t -v -m -p pea,pandas
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2017-06-26 18:57:49 
+
+CPython 3.6.1
+IPython 6.1.0
+
+pea 0.0.7
+pandas 0.20.2
+
+compiler   : MSC v.1900 64 bit (AMD64)
+system     : Windows
+release    : 7
+machine    : AMD64
+processor  : Intel64 Family 6 Model 42 Stepping 7, GenuineIntel
+CPU cores  : 8
+interpreter: 64bit
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">etl</span><span class="o">.</span><span class="n">Data</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Available-Columns">Available Columns<a class="anchor-link" href="#Available-Columns">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">movie</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[3]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([&#39;color&#39;, &#39;director_name&#39;, &#39;num_critic_for_reviews&#39;, &#39;duration&#39;,
+       &#39;director_facebook_likes&#39;, &#39;actor_3_facebook_likes&#39;, &#39;actor_2_name&#39;,
+       &#39;actor_1_facebook_likes&#39;, &#39;gross&#39;, &#39;genres&#39;, &#39;actor_1_name&#39;,
+       &#39;movie_title&#39;, &#39;num_voted_users&#39;, &#39;cast_total_facebook_likes&#39;,
+       &#39;actor_3_name&#39;, &#39;facenumber_in_poster&#39;, &#39;plot_keywords&#39;,
+       &#39;movie_imdb_link&#39;, &#39;num_user_for_reviews&#39;, &#39;language&#39;, &#39;country&#39;,
+       &#39;content_rating&#39;, &#39;budget&#39;, &#39;title_year&#39;, &#39;actor_2_facebook_likes&#39;,
+       &#39;imdb_score&#39;, &#39;aspect_ratio&#39;, &#39;movie_facebook_likes&#39;],
+      dtype=&#39;object&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="plotting-with-IPlotter">plotting with IPlotter<a class="anchor-link" href="#plotting-with-IPlotter">&#182;</a></h2><p>This example is using my own branch of IPlotter which builds the dictionary from a pandas DataFrame.  Much less verbose, but can be done with the current version on PyPI.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">iplotter</span> <span class="k">import</span> <span class="n">C3Plotter</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c3</span> <span class="o">=</span> <span class="n">C3Plotter</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Timeseries-of-mean-gross">Timeseries of mean gross<a class="anchor-link" href="#Timeseries-of-mean-gross">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">movie</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;title_year&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()[[</span><span class="s1">&#39;gross&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">c3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[46]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<iframe srcdoc="
+        <!-- Load c3.css -->
+        <link href='https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css' rel='stylesheet' type='text/css'/>
+
+        <!-- Load d3.js and c3.js -->
+        <script src='http://d3js.org/d3.v3.min.js' charset='utf-8'></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js'></script>
+
+    
+        <h1></h1>
+        <div id=chart style='width: 100%; height: 100%'></div>
+        <script>
+            var chart = document.getElementById('chart');
+            var data = {
+    'size': {
+        'height': 300
+    },
+    'data': {
+        'x': 'x',
+        'type': 'line',
+        'axes': {
+            'gross': 'y',
+            'x': 'y'
+        },
+        'columns': [
+            [
+                'gross',
+                0.0,
+                3000000.0,
+                0.0,
+                26435.0,
+                1408975.0,
+                0.0,
+                0.0,
+                2300000.0,
+                0.0,
+                3000000.0,
+                163245.0,
+                184925485.0,
+                0.0,
+                110428945.0,
+                80350000.0,
+                0.0,
+                102797150.0,
+                0.0,
+                0.0,
+                0.0,
+                22025000.0,
+                7927.0,
+                2956000.0,
+                0.0,
+                8000000.0,
+                0.0,
+                36000000.0,
+                20500000.0,
+                4934530.5,
+                0.0,
+                0.0,
+                27200000.0,
+                0.0,
+                25000000.0,
+                32000000.0,
+                43650000.0,
+                11033517.5,
+                42950000.0,
+                38237907.166666664,
+                69310231.8,
+                6100000.0,
+                43100000.0,
+                36757685.5,
+                41711931.0,
+                10450000.0,
+                27247057.75,
+                67501217.5,
+                102919529.0,
+                55052942.85714286,
+                124409732.33333333,
+                71117623.5,
+                106290809.28571428,
+                71542234.6,
+                63579571.428571425,
+                57697266.733333334,
+                41460781.52941176,
+                75037552.1875,
+                70192386.35714285,
+                62939598.73913044,
+                59223134.13333333,
+                44436464.04,
+                40233264.77419355,
+                41190351.833333336,
+                49678453.15151515,
+                78203971.25,
+                53844501.666666664,
+                63665195.14705882,
+                45302091.41304348,
+                59395666.16981132,
+                44909519.98550725,
+                42044174.25263158,
+                44793772.43103448,
+                38377007.96124031,
+                38072176.27710843,
+                42172627.58083832,
+                43255716.92553192,
+                43511151.485,
+                48727746.72327044,
+                40726529.11,
+                41159143.29064039,
+                39237855.9537037,
+                46267501.02234637,
+                44573509.378109455,
+                46207440.2,
+                49908326.01005025,
+                45785836.64397906,
+                62873527.67955801,
+                56158357.77540107,
+                62412136.94610778,
+                66530966.47552448,
+                76924035.8918919
+            ],
+            [
+                'x',
+                '1916.0',
+                '1920.0',
+                '1925.0',
+                '1927.0',
+                '1929.0',
+                '1930.0',
+                '1932.0',
+                '1933.0',
+                '1934.0',
+                '1935.0',
+                '1936.0',
+                '1937.0',
+                '1938.0',
+                '1939.0',
+                '1940.0',
+                '1941.0',
+                '1942.0',
+                '1943.0',
+                '1944.0',
+                '1945.0',
+                '1946.0',
+                '1947.0',
+                '1948.0',
+                '1949.0',
+                '1950.0',
+                '1951.0',
+                '1952.0',
+                '1953.0',
+                '1954.0',
+                '1955.0',
+                '1956.0',
+                '1957.0',
+                '1958.0',
+                '1959.0',
+                '1960.0',
+                '1961.0',
+                '1962.0',
+                '1963.0',
+                '1964.0',
+                '1965.0',
+                '1966.0',
+                '1967.0',
+                '1968.0',
+                '1969.0',
+                '1970.0',
+                '1971.0',
+                '1972.0',
+                '1973.0',
+                '1974.0',
+                '1975.0',
+                '1976.0',
+                '1977.0',
+                '1978.0',
+                '1979.0',
+                '1980.0',
+                '1981.0',
+                '1982.0',
+                '1983.0',
+                '1984.0',
+                '1985.0',
+                '1986.0',
+                '1987.0',
+                '1988.0',
+                '1989.0',
+                '1990.0',
+                '1991.0',
+                '1992.0',
+                '1993.0',
+                '1994.0',
+                '1995.0',
+                '1996.0',
+                '1997.0',
+                '1998.0',
+                '1999.0',
+                '2000.0',
+                '2001.0',
+                '2002.0',
+                '2003.0',
+                '2004.0',
+                '2005.0',
+                '2006.0',
+                '2007.0',
+                '2008.0',
+                '2009.0',
+                '2010.0',
+                '2011.0',
+                '2012.0',
+                '2013.0',
+                '2014.0',
+                '2015.0',
+                '2016.0'
+            ]
+        ]
+    },
+    'subchart': {
+        'show': false
+    },
+    'point': {
+        'show': false
+    },
+    'grid': {
+        'x': {
+            'show': false
+        },
+        'y': {
+            'show': false
+        }
+    },
+    'axis': {
+        'x': {},
+        'y': {},
+        'y2': {}
+    },
+    'zoom': {
+        'enabled': true
+    }
+};
+            data['bindto']='#chart'
+            c3.generate(data);
+        </script>
+    " src="" width="800" height="420" frameborder="0" sandbox="allow-scripts"></iframe>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">country_group</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">movie</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">country_group</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">countries</span> <span class="o">=</span> <span class="n">country_group</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">iplotter</span> <span class="k">import</span> <span class="n">PlotlyPlotter</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">HTML</span>
+
+<span class="n">plotly</span> <span class="o">=</span> <span class="n">PlotlyPlotter</span><span class="p">()</span>
+
+<span class="n">c3_plotter</span> <span class="o">=</span> <span class="n">C3Plotter</span><span class="p">()</span>
+
+<span class="n">plotly_chart</span> <span class="o">=</span> <span class="p">[{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s1">&#39;choropleth&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;locationmode&quot;</span><span class="p">:</span> <span class="s1">&#39;country names&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;locations&quot;</span><span class="p">:</span> <span class="n">countries</span><span class="p">,</span>
+    <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="n">counts</span><span class="p">,</span>
+    <span class="s2">&quot;zmin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;zmax&quot;</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">counts</span><span class="p">),</span>
+    <span class="s2">&quot;colorscale&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;rgb(242,240,247)&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;rgb(218,218,235)&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;rgb(188,189,220)&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;rgb(158,154,200)&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="s1">&#39;rgb(117,107,177)&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;rgb(84,39,143)&#39;</span><span class="p">]</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;colorbar&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s1">&#39;Count&#39;</span><span class="p">,</span>
+        <span class="s2">&quot;thickness&quot;</span><span class="p">:</span> <span class="mi">10</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;marker&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;line&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s1">&#39;rgb(255,255,255)&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">2</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}]</span>
+
+<span class="n">plotly_layout</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s1">&#39;Movie Counts by Country&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;geo&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;scope&quot;</span><span class="p">:</span> <span class="s1">&#39;country names&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+
+<span class="n">country_plot</span> <span class="o">=</span> <span class="n">plotly</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">plotly_chart</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Movies-by-Country">Movies by Country<a class="anchor-link" href="#Movies-by-Country">&#182;</a></h3><iframe srcdoc="
+        <!-- Load d3.js and plotly.js -->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js'></script>
+        <script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+        <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+
+        <div id=chart style='width: 100%; height: 100%' ></div>
+        <script>
+            var chart = document.getElementById('chart');
+            Plotly.plot(chart, [
+    {
+        'type': 'choropleth',
+        'locationmode': 'country names',
+        'locations': [
+            'Afghanistan',
+            'Argentina',
+            'Aruba',
+            'Australia',
+            'Bahamas',
+            'Belgium',
+            'Brazil',
+            'Bulgaria',
+            'Cambodia',
+            'Cameroon',
+            'Canada',
+            'Chile',
+            'China',
+            'Colombia',
+            'Czech Republic',
+            'Denmark',
+            'Dominican Republic',
+            'Egypt',
+            'Finland',
+            'France',
+            'Georgia',
+            'Germany',
+            'Greece',
+            'Hong Kong',
+            'Hungary',
+            'Iceland',
+            'India',
+            'Indonesia',
+            'Iran',
+            'Ireland',
+            'Israel',
+            'Italy',
+            'Japan',
+            'Kenya',
+            'Kyrgyzstan',
+            'Libya',
+            'Mexico',
+            'Netherlands',
+            'New Line',
+            'New Zealand',
+            'Nigeria',
+            'Norway',
+            'Official site',
+            'Pakistan',
+            'Panama',
+            'Peru',
+            'Philippines',
+            'Poland',
+            'Romania',
+            'Russia',
+            'Slovakia',
+            'Slovenia',
+            'South Africa',
+            'South Korea',
+            'Soviet Union',
+            'Spain',
+            'Sweden',
+            'Switzerland',
+            'Taiwan',
+            'Thailand',
+            'Turkey',
+            'UK',
+            'USA',
+            'United Arab Emirates',
+            'West Germany'
+        ],
+        'z': [
+            1,
+            4,
+            1,
+            54,
+            1,
+            4,
+            8,
+            1,
+            1,
+            1,
+            126,
+            1,
+            30,
+            1,
+            3,
+            11,
+            1,
+            1,
+            1,
+            154,
+            1,
+            97,
+            2,
+            17,
+            2,
+            3,
+            31,
+            1,
+            4,
+            12,
+            4,
+            23,
+            23,
+            1,
+            1,
+            1,
+            17,
+            5,
+            1,
+            15,
+            1,
+            8,
+            1,
+            0,
+            1,
+            1,
+            1,
+            5,
+            4,
+            11,
+            1,
+            1,
+            8,
+            14,
+            1,
+            33,
+            6,
+            3,
+            2,
+            5,
+            1,
+            445,
+            3801,
+            1,
+            3
+        ],
+        'zmin': 0,
+        'zmax': 3801,
+        'colorscale': [
+            [
+                0,
+                'rgb(242,240,247)'
+            ],
+            [
+                0.2,
+                'rgb(218,218,235)'
+            ],
+            [
+                0.4,
+                'rgb(188,189,220)'
+            ],
+            [
+                0.6,
+                'rgb(158,154,200)'
+            ],
+            [
+                0.8,
+                'rgb(117,107,177)'
+            ],
+            [
+                1,
+                'rgb(84,39,143)'
+            ]
+        ],
+        'colorbar': {
+            'title': 'Count',
+            'thickness': 10
+        },
+        'marker': {
+            'line': {
+                'color': 'rgb(255,255,255)',
+                'width': 2
+            }
+        }
+    }
+], null);
+        </script>
+    " src="" width="800" height="420" frameborder="0" sandbox="allow-scripts"></iframe>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+ 
+
