@@ -1,7 +1,6 @@
 
 import os
 import sys
-from matplotlib import rcParams
 
 try:
     root_dir = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
