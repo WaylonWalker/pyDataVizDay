@@ -9,6 +9,31 @@ IMDB 5000 Movie Dataset.
 import os
 from flask import Flask
 from flask import request, render_template, make_response, jsonify
+import settings
+import etl
+import io
+import base64 as b64
+
+from iplotter import C3Plotter
+c3 = C3Plotter()
+
+def fig_to_html(fig):
+    """
+    converts a matplotlib figure into an html image
+
+    :param fig: matplotlibe figure object
+    :returns: STR html string
+    """
+    buf = io.BytesIO()
+    fig.savefig(buf, format='png')
+    img = ('<img src="data:image/png;base64,{}">'
+           .format(b64.b64encode(buf.getvalue()))
+           .replace("b'",'')
+           .replace("'",''))
+    return img
+
+data = etl.Data()
+data.load()
 
 
 app = Flask(__name__)
@@ -19,7 +44,16 @@ def index():
 
 @app.route('/investor')
 def investor():
-    return render_template('investor.html', body='Hello Investor')
+    top = 5
+    top_countries = (data.movie.groupby('country')
+                     .sum()['budget'].sort_values(ascending=False)
+                     .head(top).index.values.tolist())
+    top_countries_df = (data.movie[data.movie['country'].isin(top_countries)]
+                        .groupby(['title_year', 'country']).sum()['budget']
+                        .unstack()
+                        )
+    c3_plot = c3.render(top_countries_df, y_axis_tick_format='s', title=f'Budget Trend for top {top} countries')
+    return render_template('investor.html', body=c3_plot)
 
 @app.route('/enthusiast')
 def enthusiast():
