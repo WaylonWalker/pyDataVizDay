@@ -1,5 +1,17 @@
 # pyDataVizDay
-A python implementation of the Data Viz Day visualization.
+A python implementation of the Data Viz Day visualization.  The visualization is
+built using a flask web framework to serve the web page.  The visualization is 
+currently running on [heroku](http://pydatavizday.herokuapp.com/).  
+
+
+## Developing the visualization
+If you want to run the visualization yourself, and further develop it clone this
+repo and run the pyDataVizDay.py file.
+
+```
+git clone https://github.com/WaylonWalker/pyDataVizDay.git
+python src//pyDataVizDay.py
+```
 
 ## Dataset
 This project will be using the Kaggle 
