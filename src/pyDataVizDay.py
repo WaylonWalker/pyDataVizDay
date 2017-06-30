@@ -6,6 +6,7 @@ IMDB 5000 Movie Dataset.
 
 """
 
+import os
 from flask import Flask
 from flask import request, render_template, make_response, jsonify
 
@@ -24,16 +25,6 @@ def investor():
 def enthusiast():
     return render_template('enthusiast.html', body='Hello Enthusiast')
 
-
-
-
 if __name__ == '__main__':
-    import argparse
-    parser = argparse.ArgumentParser(description='pyDataVizDay')
-    parser.add_argument('--port', default='5000')
-    parser.add_argument('--debug', dest='debug', action='store_true')
-    parser.add_argument('--no_debug', dest='debug', action='store_false')
-    parser.set_defaults(debug=False)
-    args = parser.parse_args()
-    # webbrowser.open('http://' + str(host) + ':' + str(port) + '/')
-    app.run(debug=args.debug, host='0.0.0.0', port=int(args.port))
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
