@@ -1,1 +1,1 @@
-web: python src//pyDataVizDay.py --debug
+web: python src//pyDataVizDay.py

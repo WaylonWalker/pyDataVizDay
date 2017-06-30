@@ -11,6 +11,7 @@ from flask import request, render_template, make_response, jsonify
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secretkey'
 
 @app.route('/')
 def index():
