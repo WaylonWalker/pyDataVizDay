@@ -59,6 +59,11 @@ def investor():
 def enthusiast():
     return render_template('enthusiast.html', body='Hello Enthusiast')
 
+@app.route('/slides')
+def slides():
+    slide_body = render_template('slide_body.html')
+    return render_template('slides.html', body=slide_body)
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
