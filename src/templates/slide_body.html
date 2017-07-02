@@ -1,25 +1,57 @@
-    <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/night.css">
-        
-    </head>
-
-    <div class="reveal">
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
     <div class="slides">
-            <section>
-                <p>
-                    Deployed on Heroku
 
-                    Check it out at http://pydatavizday.herokuapp.com/
-                </p>
-            </section>
-            <section>Presentation material</section>
-    </div>
+      <section data-markdown data-separator="^\r?\n----\r?\n$" data-separator-vertical="^\r?\n---\r?\n$" data-separator-notes="^Note:" >
+        <script type="text/template">
+            {% include 'slides.md' %}
+        </script>
+    </section>
+
+
 </div>
 
-        <script src="https://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.min.js"></script>
-        <script>
-            Reveal.initialize();
-        </script>
-    </body>
-</html>
+</div>
+
+
+<script src="static/lib/js/head.min.js"></script>
+<script src="static/js/reveal.js"></script>
+
+<script>
+
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+        { src: 'static/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'static/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'static/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-vertical]' ); } },
+        { src: 'static/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'static/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-vertical]' ); } },
+        { src: 'static/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'static/plugin/zoom-js/zoom.js', async: true },
+        { src: 'static/plugin/notes/notes.js', async: true }
+        ]
+    });
+
+</script>
+
+<script type="text/javascript">
+    // 3. On Reveal.js ready event, copy header/footer <div> into each `.slide-background` <div>
+    var header = $('#header').html();
+    if ( window.location.search.match( /print-pdf/gi ) ) {
+        Reveal.addEventListener( 'ready', function( event ) {
+            $('.slide-background').append(header);
+        });
+    }
+    else {
+        $('div.reveal').append(header);
+    }
+</script>
