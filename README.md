@@ -68,4 +68,5 @@ This is the wireframe that the team has been given to replicate in python using 
     * http://jinja.pocoo.org/docs/2.9/tricks/
 * **10 min** setup heroku repo and build environment
 * **30 min** debug initial heroku deployment
+* **15 min** added reveal slide template
     
