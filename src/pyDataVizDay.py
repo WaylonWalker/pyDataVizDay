@@ -7,12 +7,14 @@ IMDB 5000 Movie Dataset.
 """
 
 import os
+import io
+import base64 as b64
+
 from flask import Flask
 from flask import request, render_template, make_response, jsonify
 import settings
 import etl
-import io
-import base64 as b64
+import palettes as pal
 
 from iplotter import C3Plotter
 c3 = C3Plotter()
@@ -52,7 +54,12 @@ def investor():
                         .groupby(['title_year', 'country']).sum()['budget']
                         .unstack()
                         )
-    c3_plot = c3.render(top_countries_df, y_axis_tick_format='s', title=f'Budget Trend for top {top} countries')
+
+    c3_plot = c3.render(top_countries_df,
+                      y_axis_tick_format='s', 
+                      title=f'Budget Trend for top {top} countries',
+                     colors=pal.todays_outfit)
+
     return render_template('investor.html', body=c3_plot)
 
 @app.route('/enthusiast')
