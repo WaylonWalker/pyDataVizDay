@@ -69,4 +69,9 @@ This is the wireframe that the team has been given to replicate in python using 
 * **10 min** setup heroku repo and build environment
 * **30 min** debug initial heroku deployment
 * **15 min** added reveal slide template
+* **45 min** update etl
+    * split keyword/genre into rows
+    * define update method
+    * docstrings
+    * add keyword/genre to load method
     
