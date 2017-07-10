@@ -1,2 +1,2 @@
-web: web.sh
+web: bash web.sh
 
