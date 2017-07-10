@@ -1,1 +1,2 @@
-web: gunicorn src//pyDataVizDay:app
+web: web.sh
+
