@@ -1,3 +1,4 @@
 flask
+gunicorn
 pandas
 -e git+https://github.com/WaylonWalker/iplotter.git@master#egg=iplotter

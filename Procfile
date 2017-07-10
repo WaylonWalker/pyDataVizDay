@@ -1,1 +1,1 @@
-web: python src//pyDataVizDay.py
+web: gunicorn src//pyDataVizDay:app
