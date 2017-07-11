@@ -9,9 +9,11 @@ IMDB 5000 Movie Dataset.
 import os
 import io
 import base64 as b64
+from collections import Counter
 
 from flask import Flask
-from flask import request, render_template, make_response, jsonify
+from flask import request, render_template, make_response, jsonify, Blueprint, url_for
+from flask_restplus import Resource, Api, fields, reqparse
 import settings
 import etl
 import palettes as pal
@@ -19,26 +21,25 @@ import palettes as pal
 from iplotter import C3Plotter
 c3 = C3Plotter()
 
-def fig_to_html(fig):
-    """
-    converts a matplotlib figure into an html image
+app = Flask(__name__)
+api_blueprint = Blueprint('api', __name__, url_prefix='/api')
+api = Api(api_blueprint, title='pyDataVizday api', 
+          description='This api is used for the pyDataVizDay visualization',
+          doc='/doc/')
+app.register_blueprint(api_blueprint)
 
-    :param fig: matplotlibe figure object
-    :returns: STR html string
-    """
-    buf = io.BytesIO()
-    fig.savefig(buf, format='png')
-    img = ('<img src="data:image/png;base64,{}">'
-           .format(b64.b64encode(buf.getvalue()))
-           .replace("b'",'')
-           .replace("'",''))
-    return img
+parser = reqparse.RequestParser()
+parser.add_argument('start_year', help='start date for data', required=False)
+parser.add_argument('end_year', help='end date for data', required=False)
+parser.add_argument('genre', help='movie genre', required=False)
+parser.add_argument('country', help='geographical country location', required=False)
+parser.add_argument('language', help='language of the movie (ex. english)', required=False)
+parser.add_argument('top', help='top n titles by imdb rating', required=False)
+parser.add_argument('title', help='title of the movie', required=False)
+parser.add_argument('color', help='"Color" or "Black and White"', required=False)
+
 
 data = etl.Data()
-data.load()
-
-
-app = Flask(__name__)
 
 @app.route('/')
 def index():
@@ -70,6 +71,25 @@ def enthusiast():
 def slides():
     slide_body = render_template('slide_body.html')
     return render_template('slides.html', body=slide_body)
+
+@api.route('/keywords')
+@api.expect(parser)
+class keywords(Resource):
+  def get(self):
+    args = parser.parse_args()
+    keyword_data = data.filter(start_year=args['start_year'],
+                               end_year=args['end_year'],
+                               genre=args['genre'],
+                               country=args['country'],
+                               language=args['language'],
+                               top=args['top'],
+                               title=args['title'],
+                               color=args['color']
+                               )
+    c = Counter(keyword_data.keyword.plot_keywords.values.tolist())
+    words = [{'text': word[0], 'weight': word[1]} for word in c.most_common(50)]
+
+    return jsonify(words)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))

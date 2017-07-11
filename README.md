@@ -74,4 +74,6 @@ This is the wireframe that the team has been given to replicate in python using 
     * define update method
     * docstrings
     * add keyword/genre to load method
+* **1 hr** implemented data.filter() method
+* **30 min** api parser/docs/keywords
     

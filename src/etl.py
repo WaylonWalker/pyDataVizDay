@@ -14,6 +14,10 @@ class Data(object):
         """
         if data == None:
             self.load()
+        else:
+            self.movie = data.movie
+            self.genre = data.genre
+            self.keyword = data.keyword
 
     def __str__(self):
 
@@ -57,6 +61,65 @@ class Data(object):
 
         keyword = generate_keyword(movie)
         keyword.to_pickle(os.path.join(settings.processed_data_dir, 'keyword.pkl'))
+
+    def filter(self, start_year=None, end_year=None, 
+                     genre=None, country=None, language=None, 
+                     top=None, title=None, color=None):
+
+            """
+            Efficiently filters 
+
+            """
+            data = Data(self)
+
+            if start_year:
+                start_year_mask = data.movie.title_year > f'{str(int(start_year)-1)}-01-01'
+            else:
+                start_year_mask = True
+            if end_year:
+                end_year_mask = data.movie.title_year <= f'{str(end_year)}-01-01'
+            else:
+                end_year_mask = True
+                
+            if genre:
+                genre_indexes = data.genre[data.genre.genres == genre]['index'].values
+                genre_mask = data.movie.index.isin(genre_indexes)
+            else:
+                genre_mask = True
+
+            if country:
+                country_mask = data.movie.country == country
+            else:
+                country_mask = True
+
+            if language:
+                language_mask = data.movie.language == language
+            else:
+                language_mask = True
+
+            if title:
+                title_mask = data.movie.movie_title == title
+            else: 
+                title_mask = True
+
+            if color:
+                color_mask = data.movie.color == color
+            else:
+                color_mask = True
+            masks = genre_mask & start_year_mask & end_year_mask & country_mask & language_mask & title_mask & color_mask
+
+            try:
+                len(masks)
+            except TypeError: # object type 'bool' has no len() i.e. not a list
+                masks = [True]*len(data.movie)
+
+            data.movie = data.movie[masks].sort_values('imdb_score', ascending=False)
+            if top:
+                data.movie = data.movie.head(int(top))
+            data.genre = data.genre[data.genre['index'].isin(data.movie.index.values.tolist())]
+            data.keyword = data.keyword[data.keyword['index'].isin(data.movie.index.values.tolist())]
+
+            return data
 
 
 def generate_genre(movie):
