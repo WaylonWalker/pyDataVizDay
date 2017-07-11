@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block head %}
+  <title>{% block title %}{% endblock %} - pyDataVizDay</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="node_modules/chosen-js/chosen.css">
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css' rel='stylesheet' type='text/css'/>
+  <link rel='stylesheet' type='text/css' href='css/custom.css'>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="node_modules/chosen-js/chosen.jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% endblock %}
+</head>
+<body>
+
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">                      
+          </button>
+          <a class="navbar-brand" href="/">pyDataVizDay</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+              {% for href, id, caption in navigation_bar %}
+                <li{% if id == active_page %} class="active"{% endif%}>
+                <a href="{{ href|e }}">{{ caption|e }}</a></li>
+              {% endfor %}
+          </ul>
+      </div>
+  </div>
+</nav>
+
+
+<div class="container" padding:50px>
+  <div class="row" min-height:100px>
+    <div class="col-sm-4" padding:10px>
+      items:
+      <select id='items' class="chosen" multiple="true">
+        <option>jQuery</option>
+        <option selected="selected">MooTools</option>
+        <option>Prototype</option>
+        <option selected="selected">Dojo Toolkit</option>
+      </select>
+    </div>
+    <div class="col-sm-4" padding:10px>
+      items:
+      <select id='items' class="chosen" multiple="true">
+        <option>jQuery</option>
+        <option selected="selected">MooTools</option>
+        <option>Prototype</option>
+        <option selected="selected">Dojo Toolkit</option>
+      </select>
+    </div>
+    <div class="col-sm-4" padding:10px>
+      items:
+      <select id='items' class="chosen" multiple="true">
+        <option>jQuery</option>
+        <option selected="selected">MooTools</option>
+        <option>Prototype</option>
+        <option selected="selected">Dojo Toolkit</option>
+      </select>
+    </div>
+  </div>
+  <div class="row" style="min-height:100px">
+    <div class="col-sm-6">
+      <p>KPI: <span class='kpi' id='kpi1'></span> things.</p> 
+    </div>
+    <div class="col-sm-1">
+      1 of 3
+    </div>
+    <div class="col-sm-1">
+      1 of 3
+    </div>
+  </div>
+</div>
+
+{{ body | safe }}
+
+</body>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+  jQuery(".chosen").chosen();
+  update_kpi1()
+});
+
+$('#items').change(function(){
+  update_kpi1()
+})
+
+
+function update_kpi1(){
+$('#kpi1').html($('#items').val())
+}
+</script>
+
+</html>

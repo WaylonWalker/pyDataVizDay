@@ -41,12 +41,20 @@ parser.add_argument('color', help='"Color" or "Black and White"', required=False
 
 data = etl.Data()
 
+
+inputs = ['top', 'start_year', 'end_year']
+dropdowns = {'genre': data.genre.genres.dropna().drop_duplicates().values.tolist(),
+            'country':data.movie.country.dropna().drop_duplicates().values.tolist(),
+            'language':data.movie.language.dropna().drop_duplicates().values.tolist()
+            }
+
 @app.route('/')
 def index():
     return render_template('index.html', body='Hello')
 
 @app.route('/investor')
 def investor():
+    form = render_template('data_form.html', dropdowns=dropdowns, inputs=inputs)
     top = 5
     top_countries = (data.movie.groupby('country')
                      .sum()['budget'].sort_values(ascending=False)
@@ -61,7 +69,7 @@ def investor():
                       title=f'Budget Trend for top {top} countries',
                      colors=pal.todays_outfit)
 
-    return render_template('investor.html', body=c3_plot)
+    return render_template('investor.html', body=form)
 
 @app.route('/enthusiast')
 def enthusiast():
@@ -69,7 +77,8 @@ def enthusiast():
 
 @app.route('/slides')
 def slides():
-    slide_body = render_template('slide_body.html')
+    
+    slide_body = render_template('slide_body.html', filters=filters)
     return render_template('slides.html', body=slide_body)
 
 @api.route('/keywords')
