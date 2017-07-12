@@ -9,14 +9,16 @@ body{
 
 .text_input{
     height:75px;
-    width:75%;
+    width:70%;
     max-width: 300px;
 }
 
  .chosen{
+    float:right;
     height:75px;
-    width:75%;
+    width:70%;
     max-width: 300px;
+    padding:5px;
 }
 
 .col-sm-3{

@@ -82,30 +82,46 @@ class Data(object):
                 end_year_mask = True
                 
             if genre:
-                genre_indexes = data.genre[data.genre.genres == genre]['index'].values
+                try: # assume genre is list like
+                    genre_indexes = data.genre[data.genre.genres.isin(genre)]['index'].values
+                except TypeError: # it is a string
+                    genre_indexes = data.genre[data.genre.genres == genre]['index'].values
                 genre_mask = data.movie.index.isin(genre_indexes)
             else:
                 genre_mask = True
 
             if country:
-                country_mask = data.movie.country == country
+                try:
+                    country_mask = data.movie.country.isin(country)
+                except TypeError:
+                    country_mask = data.movie.country == country
             else:
                 country_mask = True
 
             if language:
-                language_mask = data.movie.language == language
+                try:
+                    language_mask = data.movie.language.isin(language)
+                except:
+                    language_mask = data.movie.language == language
             else:
                 language_mask = True
 
             if title:
-                title_mask = data.movie.movie_title == title
+                try:
+                    title_mask = data.movie.movie_title.isin(title)
+                except TypeError:
+                    title_mask = data.movie.movie_title == title
             else: 
                 title_mask = True
 
             if color:
-                color_mask = data.movie.color == color
+                try:
+                    color_mask = data.movie.color.isin(color)
+                except TypeError:
+                    color_mask = data.movie.color == color
             else:
                 color_mask = True
+
             masks = genre_mask & start_year_mask & end_year_mask & country_mask & language_mask & title_mask & color_mask
 
             try:

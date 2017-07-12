@@ -75,7 +75,8 @@ def investor():
 
 @app.route('/enthusiast')
 def enthusiast():
-    return render_template('enthusiast.html', body='Hello Enthusiast')
+    form = render_template('data_form.html', dropdowns=dropdowns, inputs=inputs)
+    return render_template('enthusiast.html', form=form)
 
 @app.route('/slides')
 def slides():
@@ -88,15 +89,40 @@ def slides():
 class keywords(Resource):
   def get(self):
     args = parser.parse_args()
+
+    try:
+      args['genre'] = args['genre'].split(',')
+    except:
+      pass
+    try:
+      args['country'] = args['country'].split(',')
+    except:
+      pass
+    try:
+      args['language'] = args['language'].split(',')
+    except:
+      pass
+
+    # try:
+    #   args['start_year'] = int(args['start_year'].strip())
+    # except:
+    #   args['start_year'] = 1900   
+
+    # try:
+    #   args['end_year'] = int(args['end_year'].strip())
+    # except:
+    #   args['end_year'] = 3000
+
     keyword_data = data.filter(start_year=args['start_year'],
                                end_year=args['end_year'],
                                genre=args['genre'],
                                country=args['country'],
                                language=args['language'],
-                               top=args['top'],
-                               title=args['title'],
-                               color=args['color']
+                               top=args['top']
                                )
+
+    print(len(keyword_data.movie))
+
     c = Counter(keyword_data.keyword.plot_keywords.values.tolist())
     words = [{'text': word[0], 'weight': word[1]} for word in c.most_common(50)]
 

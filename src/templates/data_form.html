@@ -23,35 +23,3 @@
   </div>
 </div>
 
-<div id='word_cloud'></div>
-
-<script type="text/javascript">
-jQuery(document).ready(function(){
-  jQuery(".chosen").chosen();
-  update_words()
-
-});
-
-$('#top').change(function(){update_words()})
-
-function update_words(){
-  var top = $('#top').val()
-  //+ '&language=' + language + '&country=' + country + '&genre=' + genre + '&end_year=' + end_year + ' &start_year=' + start_year
-  var words = $.get('http://localhost:5000/api/keywords?top=' + top)
-  words.done(function(data){
-    $('#word_cloud').html('')
-    $('#word_cloud').jQCloud(words.responseJSON, {
-  width: 500,
-  height: 350,
-  classPattern: null,
-  colors: ['#800026', '#bd0026', '#e31a1c', '#fc4e2a', '#fd8d3c', '#feb24c', '#fed976', '#ffeda0', '#ffffcc'],
-  fontSize: {
-    from: 0.1,
-    to: 0.02
-  }
-});
-    
-  })
-}
-
-</script>
