@@ -1,5 +1,10 @@
 
-
+$('#top').change(function(){update_words()})
+$('#language').change(function(){update_words()})
+$('#country').change(function(){update_words()})
+$('#genre').change(function(){update_words()})
+$('#start_year').change(function(){update_words()})
+$('#end_year').change(function(){update_words()})
 
 jQuery(document).ready(function(){
   jQuery(".chosen").chosen();
@@ -15,7 +20,7 @@ function update_words(){
   var start_year = $('#start_year').val()
   var end_year = $('#end_year').val()
 
-  url = 'api/keywords?'
+  url = 'http://localhost:5000/api/keywords?'
 
   if (_top.length>0){url = url + 'top=' + _top + '&'}
   if (language.length>0){url = url + 'language=' + language + '&'}
