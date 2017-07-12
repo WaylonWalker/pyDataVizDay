@@ -19,6 +19,17 @@
 {% block body %}
     {{ super ()}}
     {{ form | safe }}
-    <div id='word_cloud'></div>
+    <div class="container" padding:50px>
+        <div class="row" min-height:150px>
+            <div class='col-sm-6'>
+                <div id='timeseries-chart'></div>
+            </div>
+        </div>
+        <div class="row" min-height:150px>
+            <div class='col-sm-6'>
+                <div id='word_cloud'></div>
+            </div>
+        </div> 
+    </div>
     <script src='static/js/enthusiast.js'></script>
 {% endblock %}

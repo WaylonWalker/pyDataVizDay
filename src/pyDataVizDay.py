@@ -81,15 +81,10 @@ def enthusiast():
 @app.route('/slides')
 def slides():
     
-    slide_body = render_template('slide_body.html', filters=filters)
+    slide_body = render_template('slide_body.html')
     return render_template('slides.html', body=slide_body)
 
-@api.route('/keywords')
-@api.expect(parser)
-class keywords(Resource):
-  def get(self):
-    args = parser.parse_args()
-
+def filter_with_args(args):
     try:
       args['genre'] = args['genre'].split(',')
     except:
@@ -103,30 +98,55 @@ class keywords(Resource):
     except:
       pass
 
-    # try:
-    #   args['start_year'] = int(args['start_year'].strip())
-    # except:
-    #   args['start_year'] = 1900   
+    data_filtered = data.filter(start_year=args['start_year'],
+                       end_year=args['end_year'],
+                       genre=args['genre'],
+                       country=args['country'],
+                       language=args['language'],
+                       top=args['top']
+                       )
 
-    # try:
-    #   args['end_year'] = int(args['end_year'].strip())
-    # except:
-    #   args['end_year'] = 3000
+    return data_filtered
 
-    keyword_data = data.filter(start_year=args['start_year'],
-                               end_year=args['end_year'],
-                               genre=args['genre'],
-                               country=args['country'],
-                               language=args['language'],
-                               top=args['top']
-                               )
 
-    print(len(keyword_data.movie))
-
+@api.route('/keywords')
+@api.expect(parser)
+class keywords(Resource):
+  def get(self):
+    args = parser.parse_args()
+    keyword_data = filter_with_args(args)
+    
     c = Counter(keyword_data.keyword.plot_keywords.values.tolist())
     words = [{'text': word[0], 'weight': word[1]} for word in c.most_common(50)]
 
     return jsonify(words)
+
+@api.route('/score_timeseries')
+@api.expect(parser)
+class score_timeseries(Resource):
+  def get(self):
+    args = parser.parse_args()
+    score_data = filter_with_args(args)
+
+    df = (score_data
+      .movie
+      .sort_values('imdb_score', ascending=False)
+     .head(500)
+     .groupby(['title_year'])
+      .mean()[['imdb_score', 'gross']]
+      .rolling(3).mean()
+      .dropna()
+      .ewm(5).mean()
+      .round(3)
+      .rename(columns={'imdb_score': 'IMDB Score'})
+      )
+    df['DATE'] = df.index
+    print(df.head())
+    score_timeseries = {'columns':[['IMDB Score'] + df['IMDB Score'].values.tolist(),
+                                    ['gross'] + df['gross'].values.tolist(),
+                                    ['x'] + df.index.values.tolist()]}
+
+    return jsonify(score_timeseries)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
