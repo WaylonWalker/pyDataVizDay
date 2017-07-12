@@ -4,7 +4,10 @@
   <div class="row" min-height:150px>
   {% for input in inputs %}
     <div class='col-sm-3'>
-      {{ input }}: <input type='text' class='text_input' id={{ input }} name='{{ input }}'>
+      {{ input }}: 
+      <div class='right'>
+        <input type='text' class='text_input' id={{ input }} name='{{ input }}'>
+      </div>
     </div>
   {% endfor %}
   </div>
@@ -12,11 +15,13 @@
   {% for dropdown in dropdowns %}
     <div class="col-sm-3"> 
       {{ dropdown }}:
+      <div class='right'>
       <select id={{ dropdown }} class="chosen" multiple="true">
         {% for item in dropdowns[dropdown] %}
           <option>{{ item }}</option>
         {% endfor %}
       </select>
+      </div>
     </div>
     {% endfor %}
     </div>

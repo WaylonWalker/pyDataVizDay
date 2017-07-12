@@ -7,17 +7,12 @@ body{
     font-weight:10;
 }
 
-.text_input{
-    height:75px;
-    width:70%;
-    max-width: 300px;
-}
-
- .chosen{
+.chosen{
+    text-align:right;
     float:right;
     height:75px;
-    width:70%;
-    max-width: 300px;
+    width:100%;
+    /*max-width: 300px;*/
     padding:5px;
 }
 
@@ -32,5 +27,12 @@ body{
 .text_input{
      float:right;
      height:30px;
-     width:70%;
+     width:100%;
  }
+
+.right{
+    float:right;
+    width:70%;
+    max-width: 300px;
+}
+
