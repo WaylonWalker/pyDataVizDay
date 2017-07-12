@@ -20,7 +20,7 @@ function update_words(){
   var start_year = $('#start_year').val()
   var end_year = $('#end_year').val()
 
-  url = 'http://localhost:5000/api/keywords?'
+  url = '/api/keywords?'
 
   if (_top.length>0){url = url + 'top=' + _top + '&'}
   if (language.length>0){url = url + 'language=' + language + '&'}
