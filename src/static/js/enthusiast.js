@@ -139,16 +139,20 @@ function url_params(base)
 
 function update_ts()
 {
+  score_timeseries.flow({'done': load_ts()})
+
+}
+
+function load_ts()
+{
   url = url_params('/api/score_timeseries?')
-  score_timeseries.unload()
   var updatedData = $.get(url);
   updatedData.done(function(results)
   {
     score_timeseries.load(updatedData.responseJSON)
-  });
-
+  })
+    
 }
-
 
 function update_words()
 {
