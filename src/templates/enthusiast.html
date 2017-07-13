@@ -6,11 +6,11 @@
     <!-- Load d3.js and c3.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css">
     <script src='http://d3js.org/d3.v3.min.js' charset='utf-8'></script>
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/c3/0.4.8/c3.min.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="static/node_modules/chosen-js/chosen.css">
     <script src="static/node_modules/chosen-js/chosen.jquery.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud-1.0.4.min.js'></script>
+    <script src='static/node_modules/jqcloud2/src/jqcloud.js'></script>
     <link rel='stylesheet' type='text/css' href='static/css/custom.css'>
     
 
@@ -19,14 +19,33 @@
 {% block body %}
     {{ super ()}}
     {{ form | safe }}
-    <div class="container" padding:50px>
+    <div class="container center" padding:50px>
+
+        <div class='row'>
+            <div class='col-sm-3'></div>
+            <div class='col-sm-1'>
+                Year: <div class='kpi' id='year'>
+                </div>
+            </div>
+            <div class='col-sm-1'>
+                Score: <div class='kpi' id='score'>
+                </div>
+            </div>
+            <div class='col-sm-4'>
+                Gross: <div class='kpi' id='gross' style='color:green'>
+                </div>
+            <div class='col-sm-9'></div>
+            </div>
+        </div>
+
         <div class="row" min-height:150px>
-            <div class='col-sm-6'>
+            <div class='col-sm-12'>
                 <div id='timeseries-chart'></div>
             </div>
         </div>
+
         <div class="row" min-height:150px>
-            <div class='col-sm-6'>
+            <div class='col-sm-6 centered'>
                 <div id='word_cloud'></div>
             </div>
         </div> 

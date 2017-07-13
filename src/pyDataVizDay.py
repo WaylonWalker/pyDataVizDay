@@ -141,13 +141,22 @@ class score_timeseries(Resource):
       .rename(columns={'imdb_score': 'IMDB Score'})
       )
     df['DATE'] = df.index
+    df['DATE'] = df['DATE'].astype('str').fillna('1900-01-01')
     print(df.head())
     score_timeseries = {'columns':[['IMDB Score'] + df['IMDB Score'].values.tolist(),
                                     ['gross'] + df['gross'].values.tolist(),
-                                    ['x'] + df.index.values.tolist()]}
+                                    ['x'] + df.DATE.astype(str).values.tolist()],
+                                    # ['x'] + df.index.values.tolist()],
+                        'colors':{
+      'IMDB Score': '#6998A6',
+      'gross': '#966001',
+      'x': '#08414C'
+    }}
 
     return jsonify(score_timeseries)
 
 if __name__ == '__main__':
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
