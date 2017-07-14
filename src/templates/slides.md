@@ -5,6 +5,18 @@
 
 ----
 
+# Agenda
+
+1. Viz Walk (3 Views)
+    1. Full Web App
+    * Simple Web App
+    * Exploritory Notebook
+* Tools Used
+* Other Considerations
+* Pros/Cons
+
+----
+
 # Open The Viz
 
 [pydatavizday.herokuapp.com](pydatavizday.herokuapp.com)

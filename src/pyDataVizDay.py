@@ -26,8 +26,11 @@ app = Flask(__name__)
 CORS(app)
 api_blueprint = Blueprint('api', __name__, url_prefix='/api')
 api = Api(api_blueprint, title='pyDataVizday api', 
+          default='pyDataVizDay',
           description='This api is used for the pyDataVizDay visualization',
-          doc='/doc/')
+          doc='/doc/',
+          version='0.0.1'
+          )
 app.register_blueprint(api_blueprint)
 
 parser = reqparse.RequestParser()
@@ -49,6 +52,20 @@ dropdowns = {'genre': data.genre.genres.dropna().drop_duplicates().values.tolist
             'country':data.movie.country.dropna().drop_duplicates().values.tolist(),
             'language':data.movie.language.dropna().drop_duplicates().values.tolist()
             }
+
+
+def return_csv(df, filename='data.csv'):
+    try:
+        s_buf = io.StringIO()
+        df.to_csv(s_buf)
+        response = make_response(s_buf.getvalue())
+        cd = 'attachment; filename={}.csv'.format(filename)
+        response.headers['Content-Disposition'] = cd
+        response.mimetype = 'text/csv'
+    except AttributeError:
+        response = 'AttributeError'
+    return response
+
 
 @app.route('/')
 def index():
@@ -121,6 +138,23 @@ class keywords(Resource):
 
     return jsonify(words)
 
+@api.route('/top_movies')
+@api.expect(parser)
+class top_movies(Resource):
+  def get(self):
+    args = parser.parse_args()
+    data = filter_with_args(args)
+    
+    df = (data.movie
+          .sort_values('imdb_score', ascending=False)
+          .drop_duplicates(subset=['movie_title'])
+          .set_index('movie_title')
+          [['title_year', 'imdb_score', 'gross']]
+          .head(6)
+          )
+
+    return jsonify(df.to_json())
+
 @api.route('/score_timeseries')
 @api.expect(parser)
 class score_timeseries(Resource):
@@ -148,12 +182,21 @@ class score_timeseries(Resource):
                                     ['x'] + df.DATE.astype(str).values.tolist()],
                                     # ['x'] + df.index.values.tolist()],
                         'colors':{
-      'IMDB Score': '#6998A6',
-      'gross': '#966001',
+      'IMDB Score': '#B80000',
+      'gross': '#fd8d3c',
       'x': '#08414C'
     }}
-
     return jsonify(score_timeseries)
+
+@api.route('/download')
+@api.expect(parser)
+class download(Resource):
+  def get(self):
+    args = parser.parse_args()
+    data = filter_with_args(args)
+    df = data.movie
+    return return_csv(df, 'movie.csv')
+
 
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True
