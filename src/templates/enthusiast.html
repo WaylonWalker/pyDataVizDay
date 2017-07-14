@@ -18,23 +18,33 @@
 
 {% block body %}
     {{ super ()}}
-    {{ form | safe }}
-    <div class="container center" padding:50px>
-
+    <div class="container center" style='background-color:#e8f7ff'>
         <div class='row'>
-            <div class='col-sm-3'></div>
+        <div class='col-sm-12'>
+            <h2>Plot Analysis</h2>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla suscipit dignissim purus at tincidunt. Nam dapibus magna ultricies, sollicitudin tortor id, convallis risus. Morbi convallis pharetra dictum. Proin rutrum finibus justo, eu lobortis felis condimentum sed. Quisque lorem tellus, tempor eu eleifend a, tristique vel mauris. Proin ut augue aliquam, vestibulum tortor et, cursus augue. Nullam pellentesque mattis dui, vitae consequat nulla mattis quis. Aenean non felis diam. Nunc consectetur at nunc sollicitudin fringilla. Nam in gravida tortor.
+
+Cras eu posuere est, a tincidunt diam. Cras et volutpat massa. Ut in ante consequat, egestas dolor vitae, scelerisque leo. Donec vulputate tincidunt nunc id maximus. Aliquam semper enim est, id bibendum eros volutpat quis. Sed orci augue, cursus ut rutrum eu, fringilla nec tortor. Nam consequat tincidunt pretium. In eget ornare massa.
+
+        </div>
+        </div>
+    <div style='margin-top:50px'>
+    {{ form | safe }}
+    </div>
+        <div class='row kpi' style='margin-top:50px auto; float:center; background-color:#ccebfc; border:1px; border-color:#c0e5f9; border-style:solid'>
+            <div class='col-sm-4'></div>
             <div class='col-sm-1'>
-                Year: <div class='kpi' id='year'>
+                Year: <div class='kpi-value' id='year'>
+                </div>
+            </div>
+            <div class='col-sm-1 kpi'>
+                Score: <div class='kpi-value' id='score' style='color:#0071A7'>
                 </div>
             </div>
             <div class='col-sm-1'>
-                Score: <div class='kpi' id='score' style='color:#B80000'>
+                Gross: <div class='kpi-value' id='gross' style='color:#4D9913'>
                 </div>
-            </div>
-            <div class='col-sm-4'>
-                Gross: <div class='kpi' id='gross' style='color:#4D9913'>
-                </div>
-            <div class='col-sm-9'></div>
+            {# <div class='col-sm-3'></div> #}
             </div>
         </div>
 
@@ -46,10 +56,22 @@
 
         <div class="row" min-height:150px>
             <div class='col-sm-6'>
-                <div id='sentiment-chart' class='sentiment-chart'><h2>SENTIMENT</h2></div>
+                <div id='sentiment-chart-title' class='sentiment-chart-title'>
+                <h2>Sentiment</h2>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla suscipit dignissim purus at tincidunt. Nam dapibus magna ultricies, sollicitudin tortor id, convallis risus. Morbi convallis pharetra dictum. Proin rutrum finibus justo, eu lobortis felis condimentum sed. Quisque lorem tellus, tempor eu eleifend a, tristique vel mauris.
+                </div>
+                <div id='sentiment-chart' class='sentiment-chart'>
+                <br>Sentiment Chart
+                </div>
             </div>
 
             <div class='col-sm-6'>
+                <div id='word-cloud-title'>
+                <h2>Common Keywords</h2>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla suscipit dignissim purus at tincidunt. Nam dapibus magna ultricies, sollicitudin tortor id, convallis risus. Morbi convallis pharetra dictum. Proin rutrum finibus justo, eu lobortis felis condimentum sed. Quisque lorem tellus, tempor eu eleifend a, tristique vel mauris.
+
+
+                </div>
                 <div id='word_cloud'></div>
             </div>
         </div> 

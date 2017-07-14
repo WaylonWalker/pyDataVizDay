@@ -27,7 +27,7 @@ var data = {
     ],
     'colors': {
       'IMDB Score': '#B80000',
-      'gross': '#fd8d3c',
+      'gross': '#0071A7',
       'x': '#08414C'
     }
   },
@@ -92,7 +92,7 @@ word_coud_settings =     {
       width: 500,
       height: 350,
       classPattern: null,
-      colors: ['#bd0026', '#e31a1c', '#800026', '#fc4e2a', '#fd8d3c', '#feb24c', '#fed976'],// '#ffeda0', '#ffffcc'],
+      colors: ['#0071A7', '#000E29', '#24A854',],// '#ffeda0', '#ffffcc'],
       fontSize: {
         from: 0.1,
         to: 0.02

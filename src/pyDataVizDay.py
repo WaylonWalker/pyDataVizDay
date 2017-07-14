@@ -182,8 +182,8 @@ class score_timeseries(Resource):
                                     ['x'] + df.DATE.astype(str).values.tolist()],
                                     # ['x'] + df.index.values.tolist()],
                         'colors':{
-      'IMDB Score': '#B80000',
-      'gross': '#fd8d3c',
+      'IMDB Score': '#0071A7',
+      'gross': '#4D9913',
       'x': '#08414C'
     }}
     return jsonify(score_timeseries)
