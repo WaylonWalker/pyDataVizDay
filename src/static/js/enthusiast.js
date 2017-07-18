@@ -129,7 +129,7 @@ if (window.innerWidth > 1000){
     wc_height = 350    
 }
 else {
-    wc_width = 420
+    wc_width = 300
     wc_height = 350
 }
 
