@@ -23,3 +23,8 @@
         document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
 {% endblock %}
+
+{% block body %}
+    {{ super ()}}
+    {{ body | safe }}
+{% endblock %}

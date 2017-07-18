@@ -22,7 +22,8 @@
     {% set navigation_bar = [
     ('/investor', 'investor', 'Investor'),
     ('/enthusiast', 'enthusiast', 'Enthusiast'),
-    ('/slides', 'slides', 'Slides')
+    ('/Exploritory', 'exploritory', 'Exploritory'),
+    ('/slides', 'slides', 'Slides'),
     ] -%}
     {% set active_page = active_page|default('index') -%}
 
@@ -44,7 +45,7 @@
   </div>
 </nav>
 
-{{ body | safe }}
+
 {% endblock %}
 </body>
 </html>

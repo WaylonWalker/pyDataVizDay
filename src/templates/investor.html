@@ -16,4 +16,5 @@
 
 {% block body %}
     {{ super ()}}
+    {{ body | safe }}
 {% endblock %}
