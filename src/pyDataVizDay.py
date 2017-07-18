@@ -15,6 +15,8 @@ from flask import Flask
 from flask import request, render_template, make_response, jsonify, Blueprint, url_for
 from flask_restplus import Resource, Api, fields, reqparse
 from flask_cors import CORS, cross_origin
+from textblob import TextBlob
+
 import settings
 import etl
 import palettes as pal
@@ -94,6 +96,11 @@ def investor():
 def enthusiast():
     form = render_template('data_form.html', dropdowns=dropdowns, inputs=inputs)
     return render_template('enthusiast.html', form=form)
+
+@app.route('/Exploritory')
+def exploritory():
+    notebook = render_template('Exploritory_nb.html')
+    return render_template('Exploritory.html', body=notebook)
 
 @app.route('/slides')
 def slides():
@@ -196,6 +203,21 @@ class download(Resource):
     data = filter_with_args(args)
     df = data.movie
     return return_csv(df, 'movie.csv')
+
+@api.route('/sentiment')
+@api.expect(parser)
+class sentiment(Resource):
+  def get(self):
+    args = parser.parse_args()
+    data = filter_with_args(args)
+    keywords = TextBlob(' '.join(data.keyword.plot_keywords.values))
+    results = {'columns':[['polarity'] + [round(keywords.sentiment.polarity + .1, 3) * 250],
+        ['subjectivity'] + [round(keywords.sentiment.subjectivity + .1, 3) * 150]],
+        'colors':{'polarity':'grey', 
+        'subjectivity':'#afafaf'}
+        }
+
+    return jsonify(results)
 
 
 if __name__ == '__main__':
