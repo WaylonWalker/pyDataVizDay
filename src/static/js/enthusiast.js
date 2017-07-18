@@ -82,15 +82,61 @@ var data = {
             window.last_update = performance.now()
             var year = data[0]['x'].getYear()+1900
             update_words_year(year)
+            update_sentiment_year(year)
             update_top_movies(String(parseInt(year) - 1), String(parseInt(year) + 1))
             }
     }
   }
 };
 
+data['axis']['y']['tick']['format'] = d3.format('$.3s')
+data['axis']['y2']['tick']['format'] = d3.format('.3s')
+data['bindto']='#timeseries-chart'
+
+var sentiment_data = {
+    bindto:'#sentiment-chart',
+    data: {
+        colors: {
+          polarity: "grey",
+          subjectivity: "#afafaf"},
+        columns: [
+            ['polarity', 10],
+            ['subjectivity', 10],
+        ],
+        type: 'bar',
+
+    },
+    bar: {
+        width: {
+            ratio: .7 // this makes bar width 50% of length between ticks
+        },
+        // or
+        // width: 100 // this makes bar width 100px
+    },
+    axis:{rotated:true,
+        y:{min:0, max:100, show:false},
+        x:{labels:'', show:false}
+    },
+    tooltip:{show:false},
+    grid: {y: {lines: [{value:10, text:'neutral'},
+                       {value:100, text:'max'},
+                       {value:0, text:'min'}]}}
+
+}
+
+if (window.innerWidth > 1000){
+    wc_width = 500
+    wc_height = 350    
+}
+else {
+    wc_width = 420
+    wc_height = 350
+}
+
+
 word_coud_settings =     {
-      width: 500,
-      height: 350,
+      width: wc_width,
+      height: wc_height,
       classPattern: null,
       colors: ['#0071A7', '#000E29', '#24A854',],// '#ffeda0', '#ffffcc'],
       fontSize: {
@@ -100,9 +146,6 @@ word_coud_settings =     {
     }
 
 
-data['axis']['y']['tick']['format'] = d3.format('$.3s')
-data['axis']['y2']['tick']['format'] = d3.format('.3s')
-data['bindto']='#timeseries-chart'
 
 var _top = $('#top')
 var language = $('#language')
@@ -123,6 +166,7 @@ $('#download').click(function(){download()})
 jQuery(document).ready(function(){
   jQuery(".chosen").chosen();
   score_timeseries = c3.generate(data);
+  sentiment_chart = c3.generate(sentiment_data)
   $('#word_cloud').jQCloud([{'text':'pyDataVizDay', 'weight':1}], word_coud_settings)
   update_all()
 
@@ -136,6 +180,7 @@ function download(){
 function update_all(){
   update_words()
   update_ts()
+  update_sentiment()
   update_top_movies()
   last_update = performance.now()
 }
@@ -171,6 +216,21 @@ function load_ts()
   updatedData.done(function(results)
   {
     score_timeseries.load(updatedData.responseJSON)
+  })
+}
+
+function update_sentiment()
+{
+  sentiment_chart.flow({'done': load_sentiment()})
+
+}
+function load_sentiment()
+{
+  url = url_params('/api/sentiment?')
+  var updatedData = $.get(url);
+  updatedData.done(function(results)
+  {
+    sentiment_chart.load(updatedData.responseJSON)
   })
     
 }
@@ -250,5 +310,22 @@ function update_words_year(year)
     $('#word_cloud').jQCloud('update', words.responseJSON);
     
   })
+}
+
+function update_sentiment_year(year)
+{
+
+    var url = '/api/sentiment?start_year=' + String(parseInt(year) - 1) + '&end_year=' + String(parseInt(year) + 1) + '&'
+    if (_top.val().length>0){url = url + 'top=' + _top.val() + '&'}
+    if (language.val().length>0){url = url + 'language=' + language.val() + '&'}
+    if (country.val().length>0){url = url + 'country=' + country.val() + '&'}
+    if (genre.val().length>0){url = url + 'genre=' + genre.val() + '&'}
+
+  var updatedData = $.get(url);
+  updatedData.done(function(results)
+  {
+    sentiment_chart.load(updatedData.responseJSON)
+  })
+
 }
 
