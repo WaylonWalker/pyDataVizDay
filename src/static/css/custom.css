@@ -54,6 +54,9 @@ body{
     color: var(--axis-color);
     fill: var(--axis-color);
 }
+#timeseries-chart .c3-line {
+    stroke-width: 2px;
+}
 
 .container {
     color: #C7E0E4;
@@ -63,6 +66,8 @@ body{
 
 .kpi {
     /* color: #B80000; */
+    float: none;
+    margin: 0 auto;
     padding:5px 5px 5px 5px ;
     font-weight:4;
     font-size:16px;
@@ -74,6 +79,11 @@ body{
     /*padding: 10px 20px 10px 0px;*/
     height:25px;
     /* height: 75px; */
+}
+
+.kpi-row{
+        float: none;
+    margin: 0 auto;
 }
 
 #score{
@@ -135,9 +145,9 @@ body{
 }
 
 .sentiment-chart-title{
-    color:var(--dark-blue);
-    /*text-align: center;*/
-}
+    /*color:var(--dark-blue);*/
+    /*text-align: center;
+}*/
 .word-cloud-title{
     color:#0071A7;
     /*text-align: center;*/

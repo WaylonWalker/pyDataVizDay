@@ -84,6 +84,7 @@ var data = {
         $('#year').html(year)
         $('#score').html(score)
         $('#gross').html(gross)
+        $('#top-movies-year').html(' for ' + year)
         if ((performance.now() - window.last_update)>update_freq)
         {
             window.last_update = performance.now()
