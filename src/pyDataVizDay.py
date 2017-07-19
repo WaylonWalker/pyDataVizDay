@@ -153,7 +153,7 @@ class top_movies(Resource):
     data = filter_with_args(args)
     
     df = (data.movie
-          .sort_values('imdb_score', ascending=False)
+          .sort_values('gross', ascending=False)
           .drop_duplicates(subset=['movie_title'])
           .set_index('movie_title')
           [['title_year', 'imdb_score', 'gross']]
@@ -184,15 +184,9 @@ class score_timeseries(Resource):
     df['DATE'] = df.index
     df['DATE'] = df['DATE'].astype('str').fillna('1900-01-01')
     print(df.head())
-    score_timeseries = {'columns':[['IMDB Score'] + df['IMDB Score'].values.tolist(),
+    score_timeseries = {'columns':[['IMDB Score (right)'] + df['IMDB Score'].values.tolist(),
                                     ['gross'] + df['gross'].values.tolist(),
-                                    ['x'] + df.DATE.astype(str).values.tolist()],
-                                    # ['x'] + df.index.values.tolist()],
-                        'colors':{
-      'IMDB Score': '#0071A7',
-      'gross': '#4D9913',
-      'x': '#08414C'
-    }}
+                                    ['x'] + df.DATE.astype(str).values.tolist()],}
     return jsonify(score_timeseries)
 
 @api.route('/download')
@@ -213,8 +207,6 @@ class sentiment(Resource):
     keywords = TextBlob(' '.join(data.keyword.plot_keywords.values))
     results = {'columns':[['polarity'] + [round(keywords.sentiment.polarity + .1, 3) * 250],
         ['subjectivity'] + [round(keywords.sentiment.subjectivity + .1, 3) * 150]],
-        'colors':{'polarity':'grey', 
-        'subjectivity':'#afafaf'}
         }
 
     return jsonify(results)

@@ -11,3 +11,5 @@ todays_outfit = ['#EC1616', '#F0DC9D', '#006CF8', '#000000', '#EC1616', '#F0DC9D
 # http://www.colourlovers.com/palette/2097539/Sea_Urchin_Spines
 sea_urchin_spines = ['#000E29', '#0071A7', '#24A854', '#057976', '#004444', '#000E29', '#0071A7', '#24A854']
 # https://color.adobe.com/index.cfm#themeID/937271
+
+canva = ['#F15847', '#0C243B', '#C7E0E4', '#6FA2B6', '#42637C']

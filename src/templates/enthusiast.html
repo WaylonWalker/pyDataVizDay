@@ -11,39 +11,41 @@
     <link rel="stylesheet" href="static/node_modules/chosen-js/chosen.css">
     <script src="static/node_modules/chosen-js/chosen.jquery.js"></script>
     <script src='static/node_modules/jqcloud2/src/jqcloud.js'></script>
+    <script src='static/node_modules/chroma-js/chroma.js'></script>
     <link rel='stylesheet' type='text/css' href='static/css/custom.css'>
     
 
 {% endblock %}
 
 {% block body %}
+    <div id="bottom-image">
+    <div id="top-image">
     {{ super ()}}
     {{ body | safe }}
-    <div class="container center" style='background-color:#e8f7ff'>
+    <div class="container center" style='background-color:#42637C'>
         <div class='row'>
         <div class='col-sm-12'>
-            <h2>Plot Analysis</h2>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla suscipit dignissim purus at tincidunt. Nam dapibus magna ultricies, sollicitudin tortor id, convallis risus. Morbi convallis pharetra dictum. Proin rutrum finibus justo, eu lobortis felis condimentum sed. Quisque lorem tellus, tempor eu eleifend a, tristique vel mauris. Proin ut augue aliquam, vestibulum tortor et, cursus augue. Nullam pellentesque mattis dui, vitae consequat nulla mattis quis. Aenean non felis diam. Nunc consectetur at nunc sollicitudin fringilla. Nam in gravida tortor.
-
-Cras eu posuere est, a tincidunt diam. Cras et volutpat massa. Ut in ante consequat, egestas dolor vitae, scelerisque leo. Donec vulputate tincidunt nunc id maximus. Aliquam semper enim est, id bibendum eros volutpat quis. Sed orci augue, cursus ut rutrum eu, fringilla nec tortor. Nam consequat tincidunt pretium. In eget ornare massa.
-
+            <h2>Sentiment Analysis</h2>
+            See how your favorite genre stacks up.  When were the best movies released?  When did they gross the most money?  Then hover over the line chart to find see how the plots have changed over the years.  I believe that it is a bit difficult to come up with a solid trend since we are only utilizing 0.1% of the total movies from the IMDB database.  Regardless it is still a fun tool to browse for funny word clouds, or highly subjective years and see the top grossing movies that may have swayed those metrics.
         </div>
         </div>
+        <hr>
     <div style='margin-top:50px'>
     {{ form | safe }}
     </div>
-        <div class='row kpi' style='margin-top:50px auto; float:center; background-color:#ccebfc; border:1px; border-color:#c0e5f9; border-style:solid'>
+    <hr>
+        <div class='row kpi-row' style='margin-top:50px auto; float:center; background-color:#0C243B;'>
             <div class='col-sm-4'></div>
-            <div class='col-sm-1'>
+            <div class='col-sm-1 kpi'>
                 Year: <div class='kpi-value' id='year'>
                 </div>
             </div>
             <div class='col-sm-1 kpi'>
-                Score: <div class='kpi-value' id='score' style='color:#0071A7'>
+                Score: <div class='kpi-value' id='score'>
                 </div>
             </div>
-            <div class='col-sm-1'>
-                Gross: <div class='kpi-value' id='gross' style='color:#4D9913'>
+            <div class='col-sm-1 kpi'>
+                Gross: <div class='kpi-value' id='gross'>
                 </div>
             {# <div class='col-sm-3'></div> #}
             </div>
@@ -52,6 +54,11 @@ Cras eu posuere est, a tincidunt diam. Cras et volutpat massa. Ut in ante conseq
         <div class="row" min-height:150px>
             <div class='col-sm-12'>
                 <div id='timeseries-chart'></div>
+                <div id='note' class='note'>
+                <em>
+                Hover/tap over the line plot to slice the proceeding analysis by a 3 year slice centered around the hover year.
+                </em>
+                </div>
             </div>
         </div>
 
@@ -59,7 +66,7 @@ Cras eu posuere est, a tincidunt diam. Cras et volutpat massa. Ut in ante conseq
             <div class='col-sm-6'>
                 <div id='sentiment-chart-title' class='sentiment-chart-title'>
                 <h2>Sentiment</h2>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla suscipit dignissim purus at tincidunt. Nam dapibus magna ultricies, sollicitudin tortor id, convallis risus. Morbi convallis pharetra dictum. Proin rutrum finibus justo, eu lobortis felis condimentum sed. Quisque lorem tellus, tempor eu eleifend a, tristique vel mauris.
+                The following chart shows polarity/subjectivity of the plot keywords scaled to match the dataset.  Polarity defines how positive or negative the plot is, while subjectivity shows how objective or subjective the plot is.  Action movies tend to contain more negativity with words like Murder, Terrorist, and assassin, while romance movies tend to show more positivity with words like Love, Wedding, and Friend.
                 </div>
                 <div id='sentiment-chart' class='sentiment-chart'></div>
             </div>
@@ -67,9 +74,7 @@ Cras eu posuere est, a tincidunt diam. Cras et volutpat massa. Ut in ante conseq
             <div class='col-sm-6'>
                 <div id='word-cloud-title'>
                 <h2>Common Keywords</h2>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla suscipit dignissim purus at tincidunt. Nam dapibus magna ultricies, sollicitudin tortor id, convallis risus. Morbi convallis pharetra dictum. Proin rutrum finibus justo, eu lobortis felis condimentum sed. Quisque lorem tellus, tempor eu eleifend a, tristique vel mauris.
-
-
+                This word cloud shows the most common plot keywords by their frequency.  The size of the font dictates how each word ranks to other words.  Word clouds typically do not convey data very well since longer words tend to carry more weight, and their position is random.  It is fitting to use here for a fun way to see the keywords.
                 </div>
                 <div id='word_cloud'></div>
             </div>
@@ -85,6 +90,12 @@ Cras eu posuere est, a tincidunt diam. Cras et volutpat massa. Ut in ante conseq
             <div class='col-sm-3'></div>
             <div class='col-sm-6' style='text-align:center'>
             <h2>Top Movies</h2>
+                <div id='note' class='note'>
+                <em>
+                by gross $
+                </em>
+                </div>
+            <em>
             </div>
             <div class='col-sm-3'></div>
         </div>
@@ -101,4 +112,6 @@ Cras eu posuere est, a tincidunt diam. Cras et volutpat massa. Ut in ante conseq
         {% endfor %}
     </div>
     <script src='static/js/enthusiast.js'></script>
+    </div>
+    </div>
 {% endblock %}

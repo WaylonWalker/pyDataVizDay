@@ -3,6 +3,13 @@ var mil = d3.format('$.3s')
 var update_freq = 200
 
 
+// $(document).ready(function() {
+var style = getComputedStyle(document.body);
+score_color = style.getPropertyValue('--score-color');
+gross_color = style.getPropertyValue('--gross-color');
+// }
+
+
 var data = {
   'size': {
     'height': 300
@@ -10,7 +17,7 @@ var data = {
   'data': {
     'x': 'x',
     'axes': {
-      'IMDB Score': 'y2',
+      'IMDB Score (right)': 'y2',
       'gross': 'y',
       'x': 'y'
     },
@@ -26,8 +33,8 @@ var data = {
     ]
     ],
     'colors': {
-      'IMDB Score': '#B80000',
-      'gross': '#0071A7',
+      'IMDB Score (right)': score_color,
+      'gross': gross_color,
       'x': '#08414C'
     }
   },
@@ -97,8 +104,8 @@ var sentiment_data = {
     bindto:'#sentiment-chart',
     data: {
         colors: {
-          polarity: "grey",
-          subjectivity: "#afafaf"},
+          polarity: chroma(score_color).darken().hex(),
+          subjectivity: score_color, },
         columns: [
             ['polarity', 10],
             ['subjectivity', 10],
@@ -108,7 +115,7 @@ var sentiment_data = {
     },
     bar: {
         width: {
-            ratio: .7 // this makes bar width 50% of length between ticks
+            ratio: 100 // this makes bar width 50% of length between ticks
         },
         // or
         // width: 100 // this makes bar width 100px
@@ -119,8 +126,11 @@ var sentiment_data = {
     },
     tooltip:{show:false},
     grid: {y: {lines: [{value:10, text:'neutral'},
-                       {value:100, text:'max'},
-                       {value:0, text:'min'}]}}
+                       {value:100, text:'positive'},
+                       {value:100, text:'     subjective', position:'start'},
+                       {value:0, text:'negative'},
+                       {value:0, text:'     objective', position:'start'},
+                       ]}}
 
 }
 
@@ -138,7 +148,12 @@ word_coud_settings =     {
       width: wc_width,
       height: wc_height,
       classPattern: null,
-      colors: ['#0071A7', '#000E29', '#24A854',],// '#ffeda0', '#ffffcc'],
+      colors: [score_color, 
+               // gross_color, 
+               chroma(score_color).darken().hex(), 
+               // chroma(gross_color).darken().hex(),
+               chroma(score_color).darken().darken().hex(), 
+               ],// '#ffeda0', '#ffffcc'],
       fontSize: {
         from: 0.1,
         to: 0.02
@@ -246,17 +261,6 @@ function update_words()
   })
 }
 
-poster_img = '';
-function poster(title){
-    console.log(title)
-    var info = $.get('http://www.omdbapi.com/?t=' + title + '&apikey=90424a9e')
-    return info.done( function(){
-    poster_img = '<img src=' + info.responseJSON['Poster'] + '>'
-    console.log(poster_img)
-    return poster_img         
-    }
-    )
-    }
 
 function update_top_movies(start_year, end_year)
 {
@@ -278,8 +282,7 @@ function update_top_movies(start_year, end_year)
             window.promises = promises
         for (i in promises){
             console.log()
-            h = promises[i].responseJSON['Title'] + '<br> <img src=' + promises[i].responseJSON['Poster'] + '><br><br>'
-            $('#poster-' + i).html('<img src=' + promises[i].responseJSON['Poster'] + '>')
+            $('#poster-' + i).html('<img src=' + promises[i].responseJSON['Poster'] + ' width=75%>')
             $('#title-' + i).html(promises[i].responseJSON['Title'])
 
         }
@@ -329,3 +332,29 @@ function update_sentiment_year(year)
 
 }
 
+$(document).ready(function() {
+var movementStrength = 30;
+var top_height = movementStrength / $(window).height();
+var top_width = movementStrength / $(window).width();
+$("#top-image").mousemove(function(e){
+          var pageX = e.pageX - ($(window).width() / 2);
+          var pageY = e.pageY - ($(window).height() / 2);
+          var newvalueX = top_width * pageX * -1 - 25;
+          var newvalueY = top_height * pageY * -1 - 50;
+          $('#top-image').css("background-position", newvalueX+"px     "+newvalueY+"px");
+});
+
+var movementStrength = 10;
+var height = movementStrength / $(window).height();
+var width = movementStrength / $(window).width();
+$("#bottom-image").mousemove(function(e){
+          var pageX = e.pageX - ($(window).width() / 2);
+          var pageY = e.pageY - ($(window).height() / 2);
+          var newvalueX = width * pageX * -1 - 25;
+          var newvalueY = height * pageY * -1 - 50;
+          $('#bottom-image').css("background-position", newvalueX+"px     "+newvalueY+"px");
+});
+
+
+
+});

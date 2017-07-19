@@ -1,9 +1,69 @@
+html{
+    --score-color:#0071A7;
+    --gross-color:#4D9913;
+    --dark-blue:#0C243B;
+    --light-blue:#384c65;
+    --score-color:#0C243B;
+    --axis-color: var(--score-color);
+}
+
 body{
     font-family:Tahoma, Geneva, sans-serif;
-    background-color:white;
+    color:#C7E0E4;
+    background-color:#0C243B;
+
 }
+
+#top-image{
+    background-image: url("/static/top.png");
+    background-repeat: repeat;
+}
+
+#bottom-image{
+    background-image: url("/static/bottom.png");
+    background-repeat: repeat;
+}
+
+
+/*@keyframes fadein{
+    0% { opacity:0; }
+    66% { opacity:0; }
+    100% { opacity:1; }
+}
+
+@-webkit-keyframes fadein{
+    0% { opacity:0; }
+    66% { opacity:0; }
+    100% { opacity:1; }
+}*/
+
+/*#timeseries-chart {
+    stroke: #fff !important; 
+}*/
+
+.c3 .c3-axis-x path, .c3 .c3-axis-x line, 
+.c3 .c3-axis-y path, .c3 .c3-axis-y line,
+.c3 .c3-axis-y2 path, .c3 .c3-axis-y2 line {
+    stroke: var(--axis-color);
+}
+
+.c3 .c3-axis-x g,
+.c3 .c3-axis-y g,
+.c3 .c3-axis-y2 g,
+.c3 .c3-legend-item-data text {
+    color: var(--axis-color);
+    fill: var(--axis-color);
+}
+
+.container {
+    color: #C7E0E4;
+    box-shadow: 0px 30px 40px rgba(0,0,0,1);
+    })
+
+
 .kpi {
     /* color: #B80000; */
+    padding:5px 5px 5px 5px ;
     font-weight:4;
     font-size:16px;
 }
@@ -11,7 +71,18 @@ body{
     /* color: #B80000; */
     font-weight:8;
     font-size:18px;
-    padding: 10px 20px 10px 0px;
+    /*padding: 10px 20px 10px 0px;*/
+    height:25px;
+    /* height: 75px; */
+}
+
+#score{
+    color: var(--score-color);
+    color: var(--light-blue);
+}
+
+#gross{
+    color: var(--gross-color);
 }
 
 .chosen{
@@ -54,12 +125,17 @@ body{
 
 .title{
     font-size:22px;
-    color:#0071A7;
+    color:var(--dark-blue);
     font: bold;
 }
 
+.note{
+    color:var(--dark-blue);
+    
+}
+
 .sentiment-chart-title{
-    color:#0071A7;
+    color:var(--dark-blue);
     /*text-align: center;*/
 }
 .word-cloud-title{
