@@ -88,7 +88,7 @@
 
         <div class='row' padding:50px>
             <div class='col-sm-3'></div>
-            <div class='col-sm-6' style='text-align:center'>
+            <div class='col-sm-6' style='text-align:center; margin:auto'>
             <h2>Top Movies <div id='top-movies-year'></div></h2>
                 <div id='note' class='note'>
                 <em>
@@ -103,7 +103,7 @@
         {% for i in range(0, 6, 3) %}
         <div class="row" min-height:150px>
         {% for j in range(3) %}
-            <div class='col-sm-4'>
+            <div class='col-sm-4' style='float:center; margin:auto; text-align:center'>
                 <div id='title-{{i+j}}' class='title'></div>
                 <div id='poster-{{ i + j }}' class='poster'></div>
             </div>
