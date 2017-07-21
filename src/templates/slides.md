@@ -17,6 +17,18 @@
 
 ----
 
+## About Me
+
+![profile](/static/profile_photo_sm.jpg)
+
+Waylon Walker
+
+Product Engineering
+
+
+
+----
+
 # Open The Viz
 
 [pydatavizday.herokuapp.com](pydatavizday.herokuapp.com)
@@ -167,11 +179,12 @@ else:
 
 ## Documentation
 
+*The python community has a very strong focus on documentation*
+
+---
+* automated html docs
+* free hosting for any pypi package
 * docstrings
-    * help()
-    * ?
-    * fully rendered sphinx docs
-* comments when absolutely necessary
 
 ---
 
@@ -183,11 +196,31 @@ else:
 
 ## Cons on python
 
-* No GUI (Drag and Drop Environment)
-* Longer Learning Curve
-* slow runtime compared to statically typed languages (c, java)
-* Latest ML aglorithms are typically developed in R
+* Code
+* Interactivity
+* Speed
+* ML research
 
 ---
 
-I ♥ Code
+### No GUI (Drag and Drop Environment)
+*Longer Learning Curve*
+
+---
+
+### Interactive plots are difficult
+
+---
+
+### Slow
+
+*slow runtime compared to statically typed languages (c, java)*
+
+---
+
+### Latest ML aglorithms are typically developed in R
+
+---
+
+
+### I ♥ Code
