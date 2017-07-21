@@ -49,15 +49,15 @@ body{
 .c3 .c3-axis-x path, .c3 .c3-axis-x line, 
 .c3 .c3-axis-y path, .c3 .c3-axis-y line,
 .c3 .c3-axis-y2 path, .c3 .c3-axis-y2 line {
-    stroke: var(--axis-color);
+    stroke: #0071A7;
 }
 
 .c3 .c3-axis-x g,
 .c3 .c3-axis-y g,
 .c3 .c3-axis-y2 g,
 .c3 .c3-legend-item-data text {
-    color: var(--axis-color);
-    fill: var(--axis-color);
+    color: #0071A7;
+    fill: #0071A7;
 }
 #timeseries-chart .c3-line {
     stroke-width: 2px;
@@ -94,12 +94,14 @@ body{
 }
 
 #score{
-    color: var(--score-color);
+    /*color: var(--score-color);*/
+    color: #0071A7;
     /*color: var(--light-blue);*/
 }
 
 #gross{
-    color: var(--gross-color);
+    /*color: var(--gross-color);*/
+    color: #4D9913;
 }
 
 .chosen{
@@ -143,7 +145,8 @@ body{
 
 .title{
     font-size:22px;
-    color:var(--dark-blue);
+    /*color:var(--dark-blue);*/
+    color:#0C243B;
     font: bold;
 }
 
@@ -151,7 +154,8 @@ body{
     text-align:center;
     float: center;
     margin: auto;
-    color:var(--dark-blue);
+    /*color:var(--dark-blue);*/
+    color:#0C243B;
     
 }
 

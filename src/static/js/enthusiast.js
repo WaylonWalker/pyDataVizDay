@@ -7,6 +7,9 @@ var update_freq = 200
 var style = getComputedStyle(document.body);
 score_color = style.getPropertyValue('--score-color');
 gross_color = style.getPropertyValue('--gross-color');
+
+score_color = '#0071A7';
+gross_color = '#4D9913';
 // }
 
 
@@ -105,7 +108,7 @@ var sentiment_data = {
     bindto:'#sentiment-chart',
     data: {
         colors: {
-          polarity: chroma(score_color).darken().hex(),
+          polarity: "#000016",//chroma(score_color).darken().hex(),
           subjectivity: score_color, },
         columns: [
             ['polarity', 10],
@@ -154,11 +157,11 @@ word_coud_settings =     {
       height: wc_height,
       classPattern: null,
       colors: [score_color, 
-               // gross_color, 
-               chroma(score_color).darken().hex(), 
-               // chroma(gross_color).darken().hex(),
-               chroma(score_color).darken().darken().hex(), 
-               ],// '#ffeda0', '#ffffcc'],
+               // chroma(score_color).darken().hex(), 
+               "#000016",
+               // chroma(score_color).darken().darken().hex(), 
+               "#000000",
+               ],
       fontSize: {
         from: 0.1,
         to: 0.02
