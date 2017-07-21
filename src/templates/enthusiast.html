@@ -19,6 +19,7 @@
 
 {% block body %}
     <div id="bottom-image">
+    <div id="middle-image">
     <div id="top-image">
     {{ super ()}}
     {{ body | safe }}
@@ -34,7 +35,7 @@
     {{ form | safe }}
     </div>
     <hr>
-        <div class='row kpi-row' style='margin-top:50px auto; float:center; background-color:#0C243B;'>
+        <div class='row kpi-row' style='margin-top:50px auto; float:center; background-color:rgba(12, 36, 59, 0.3)'>
             <div class='col-sm-4'></div>
             <div class='col-sm-1 kpi'>
                 Year: <div class='kpi-value' id='year'>
@@ -68,15 +69,15 @@
                 <h2>Sentiment</h2>
                 The following chart shows polarity/subjectivity of the plot keywords scaled to match the dataset.  Polarity defines how positive or negative the plot is, while subjectivity shows how objective or subjective the plot is.  Action movies tend to contain more negativity with words like Murder, Terrorist, and assassin, while romance movies tend to show more positivity with words like Love, Wedding, and Friend.
                 </div>
-                <div id='sentiment-chart' class='sentiment-chart'></div>
+                <div id='sentiment-chart' class='sentiment-chart centered'></div>
             </div>
 
             <div class='col-sm-6'>
                 <div id='word-cloud-title'>
-                <h2>Common Keywords</h2>
+                <h2>Plot Keywords</h2>
                 This word cloud shows the most common plot keywords by their frequency.  The size of the font dictates how each word ranks to other words.  Word clouds typically do not convey data very well since longer words tend to carry more weight, and their position is random.  It is fitting to use here for a fun way to see the keywords.
                 </div>
-                <div id='word_cloud'></div>
+                <div id='word_cloud' class='centered'></div>
             </div>
         </div> 
 
@@ -110,6 +111,7 @@
         {% endfor %}
         </div>
         {% endfor %}
+    </div>
     </div>
     </div>
     </div>

@@ -135,6 +135,10 @@ var sentiment_data = {
 
 }
 
+
+function update_word_cloud_settings(){
+
+console.log('update')
 if (window.innerWidth > 1000){
     wc_width = 500
     wc_height = 350    
@@ -160,6 +164,9 @@ word_coud_settings =     {
         to: 0.02
         }
     }
+  
+  return word_coud_settings;
+}
 
 
 
@@ -183,7 +190,7 @@ jQuery(document).ready(function(){
   jQuery(".chosen").chosen();
   score_timeseries = c3.generate(data);
   sentiment_chart = c3.generate(sentiment_data)
-  $('#word_cloud').jQCloud([{'text':'pyDataVizDay', 'weight':1}], word_coud_settings)
+  $('#word_cloud').jQCloud([{'text':'pyDataVizDay', 'weight':1}], update_word_cloud_settings())
   update_all()
 
 
@@ -311,7 +318,7 @@ function update_words_year(year)
   words.done(function(data)
   {
     // $('#word_cloud').html('')
-    $('#word_cloud').jQCloud('update', words.responseJSON);
+    $('#word_cloud').jQCloud('update', words.responseJSON, update_word_cloud_settings());
     
   })
 }
@@ -334,28 +341,49 @@ function update_sentiment_year(year)
 }
 
 $(document).ready(function() {
-var movementStrength = 30;
-var top_height = movementStrength / $(window).height();
-var top_width = movementStrength / $(window).width();
+var top_movementStrength = 50;
+var top_width = top_movementStrength / $(window).width();
+var top_height = top_movementStrength / $(window).height();
 $("#top-image").mousemove(function(e){
           var pageX = e.pageX - ($(window).width() / 2);
           var pageY = e.pageY - ($(window).height() / 2);
-          var newvalueX = top_width * pageX * -1 - 25;
-          var newvalueY = top_height * pageY * -1 - 50;
-          $('#top-image').css("background-position", newvalueX+"px     "+newvalueY+"px");
+          var topX = top_width * pageX * -1 - 25;
+          var topY = top_height * pageY * -1 - 50;
+          $('#top-image').css("background-position", topX+"px     "+topY+"px");
 });
 
-var movementStrength = 10;
-var height = movementStrength / $(window).height();
+var middle_movementStrength = 15;
+var middle_width = middle_movementStrength / $(window).width();
+var middle_height = middle_movementStrength / $(window).height();
+$("#middle-image").mousemove(function(e){
+          var pageX = e.pageX - ($(window).width() / 2);
+          var pageY = e.pageY - ($(window).height() / 2);
+          var middle_X = middle_width * pageX * -1 - 25;
+          var middle_Y = middle_height * pageY * -1 - 50;
+          $('#middle-image').css("background-position", middle_X+"px     "+middle_Y+"px");
+});
+
+var movementStrength = 5;
 var width = movementStrength / $(window).width();
+var height = movementStrength / $(window).height();
 $("#bottom-image").mousemove(function(e){
           var pageX = e.pageX - ($(window).width() / 2);
           var pageY = e.pageY - ($(window).height() / 2);
-          var newvalueX = width * pageX * -1 - 25;
-          var newvalueY = height * pageY * -1 - 50;
-          $('#bottom-image').css("background-position", newvalueX+"px     "+newvalueY+"px");
+          var bottom_X = width * pageX * -1 - 25;
+          var bottom_Y = height * pageY * -1 - 50;
+          $('#bottom-image').css("background-position", bottom_X+"px     "+bottom_Y+"px");
 });
 
 
 
 });
+
+
+$(window).resize(function(){
+  var settings = update_word_cloud_settings()
+  console.log(settings)
+  $('#word_cloud').empty();
+  $('#word_cloud').jQCloud('destroy')
+  $('#word_cloud').jQCloud([{'text':'pyDataVizDay', 'weight':1}], settings)
+  update_words()
+})

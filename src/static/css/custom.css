@@ -19,6 +19,11 @@ body{
     background-repeat: repeat;
 }
 
+#middle-image{
+    background-image: url("/static/middle.png");
+    background-repeat: repeat;
+}
+
 #bottom-image{
     background-image: url("/static/bottom.png");
     background-repeat: repeat;
@@ -73,6 +78,7 @@ body{
     font-size:16px;
 }
 .kpi-value {
+    text-align:center;
     /* color: #B80000; */
     font-weight:8;
     font-size:18px;
@@ -82,13 +88,14 @@ body{
 }
 
 .kpi-row{
+    text-align:center;
         float: none;
     margin: 0 auto;
 }
 
 #score{
     color: var(--score-color);
-    color: var(--light-blue);
+    /*color: var(--light-blue);*/
 }
 
 #gross{
@@ -129,7 +136,8 @@ body{
 }
 
 .centered{
-    float: none;
+    text-align:center;
+    float: center;
     margin: 0 auto;
 }
 
@@ -140,6 +148,9 @@ body{
 }
 
 .note{
+    text-align:center;
+    float: center;
+    margin: auto;
     color:var(--dark-blue);
     
 }
