@@ -49,15 +49,15 @@ body{
 .c3 .c3-axis-x path, .c3 .c3-axis-x line, 
 .c3 .c3-axis-y path, .c3 .c3-axis-y line,
 .c3 .c3-axis-y2 path, .c3 .c3-axis-y2 line {
-    stroke: #0071A7;
+    stroke: #0C243B;
 }
 
 .c3 .c3-axis-x g,
 .c3 .c3-axis-y g,
 .c3 .c3-axis-y2 g,
 .c3 .c3-legend-item-data text {
-    color: #0071A7;
-    fill: #0071A7;
+    color: #0C243B;
+    fill: #0C243B;
 }
 #timeseries-chart .c3-line {
     stroke-width: 2px;
@@ -95,7 +95,7 @@ body{
 
 #score{
     /*color: var(--score-color);*/
-    color: #0071A7;
+    color: #0C243B;
     /*color: var(--light-blue);*/
 }
 

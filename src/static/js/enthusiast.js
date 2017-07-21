@@ -8,7 +8,7 @@ var style = getComputedStyle(document.body);
 score_color = style.getPropertyValue('--score-color');
 gross_color = style.getPropertyValue('--gross-color');
 
-score_color = '#0071A7';
+score_color = '#0C243B';
 gross_color = '#4D9913';
 // }
 
