@@ -5,16 +5,23 @@
   {{ super() }}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel='stylesheet' type='text/css' href='static/css/wsw_notebook.css'>
-    <!-- <link rel='stylesheet' type='text/css' href='static/css/custom.css'> -->
+    <link rel='stylesheet' type='text/css' href='static/css/custom.css'>
     
 
 {% endblock %}
 
 {% block body %}
     {{ super ()}}
-        <div class='notebook-container' style='float:center; max-width: 800px; margin-left:auto; margin-right:auto background-color:white' >
-    {{ body | safe }}
-    </div>
+        <div id="bottom-image" style='min-height: 1200px'>
+        <div id="middle-image" style='min-height: 1200px'>
+        <div id="top-image" style='min-height: 1200px'>
+        <div class='notebook-container' style='float:center; max-width: 800px; margin-left:auto; margin-right:auto; background-color:white' >
+            {{ body | safe }}
+            <div id="disqus_thread"></div>
+        </div>
+        </div>
+        </div>
+        </div>
 <!--     {{ body | safe }} -->
     <script>
         // $('.output_html').hide()
@@ -35,4 +42,5 @@ $('#show-code-btn').click(function (event){
     $('.input_area').toggle()
 });
     </script>
+    <script src='static/js/lights.js?v=1'></script>
 {% endblock %}
