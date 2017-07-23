@@ -22,11 +22,13 @@
     {% set navigation_bar = [
     ('/enthusiast', 'enthusiast', 'Enthusiast'),
     ('/Exploritory', 'exploritory', 'Exploritory'),
+    ('/api/doc/#/pyDataVizDay', 'api', 'api'),
     ('/slides', 'slides', 'Slides'),
+    ('/slides_light', 'slides_light', 'light slides'),
     ] -%}
     {% set active_page = active_page|default('index') -%}
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse" >
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">                      
@@ -39,6 +41,9 @@
                 <li{% if id == active_page %} class="active"{% endif%}>
                 <a href="{{ href|e }}">{{ caption|e }}</a></li>
               {% endfor %}
+
+
+
           </ul>
       </div>
   </div>
@@ -46,5 +51,33 @@
 
 
 {% endblock %}
+
 </body>
+
+    <script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    
+    var disqus_config = function () {
+        this.page.url = 'http://pydatavizday.herokuapp.com/{ active_page }';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '{ active_page } '; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    
+    (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//http-pydatavizday-herokuapp-com.disqus.com/embed.js';  // IMPORTANT: Replace EXAMPLE with your forum shortname!
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
 </html>
+
+
