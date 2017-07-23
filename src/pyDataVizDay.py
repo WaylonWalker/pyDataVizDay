@@ -15,6 +15,7 @@ from flask import Flask
 from flask import request, render_template, make_response, jsonify, Blueprint, url_for
 from flask_restplus import Resource, Api, fields, reqparse
 from flask_cors import CORS, cross_origin
+import markdown
 from textblob import TextBlob
 
 import settings
@@ -25,6 +26,7 @@ from iplotter import C3Plotter
 c3 = C3Plotter()
 
 app = Flask(__name__)
+disq = Disqus(app)
 CORS(app)
 api_blueprint = Blueprint('api', __name__, url_prefix='/api')
 api = Api(api_blueprint, title='pyDataVizday api', 
@@ -71,7 +73,8 @@ def return_csv(df, filename='data.csv'):
 
 @app.route('/')
 def index():
-    return render_template('index.html', body='Hello')
+  body = markdown.markdown(render_template('index.md'), extensions=['markdown.extensions.fenced_code'])
+  return render_template('index.html', body=body)
 
 @app.route('/investor')
 def investor():
@@ -106,7 +109,13 @@ def exploritory():
 def slides():
     
     slide_body = render_template('slide_body.html')
-    return render_template('slides.html', body=slide_body)
+    return render_template('slides_dark.html', body=slide_body)
+
+@app.route('/slides_light')
+def slides_light():
+    
+    slide_body = render_template('slide_body.html')
+    return render_template('slides_light.html', body=slide_body)
 
 def filter_with_args(args):
     try:
