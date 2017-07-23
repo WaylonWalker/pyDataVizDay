@@ -1,0 +1,10 @@
+{% extends "slides.html" %}
+{% set active_page = "light" %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="static/css/theme/solarized.css" id="theme">
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="static/lib/css/android-light.css">
+  {# <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/sunburst.min.css"> #}
+
+{% endblock %}

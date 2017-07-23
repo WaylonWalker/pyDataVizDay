@@ -1,0 +1,9 @@
+{% set active_page = "slides" %}
+{% extends "slides.html" %}
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="static/css/theme/black.css" id="theme">
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="static/lib/css/zenburn.css">
+
+{% endblock %}
