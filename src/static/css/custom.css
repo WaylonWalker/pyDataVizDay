@@ -14,6 +14,22 @@ body{
 
 }
 
+
+pre {
+    white-space:nowrap;
+    padding:1px;
+    border:1px;
+    background-color: rgba(1,1,1,1);
+    margin:1px auto;
+    border:0;
+
+}
+
+
+.hljs {
+    border-color: #0C243B;
+    background: #384c65;
+}
 #top-image{
     background-image: url("/static/top.png");
     background-repeat: repeat;
@@ -28,6 +44,8 @@ body{
     background-image: url("/static/bottom.png");
     background-repeat: repeat;
 }
+
+
 
 
 /*@keyframes fadein{
@@ -192,3 +210,4 @@ body{
 .active{
     background-color:#0071A7;
 }*/
+}
