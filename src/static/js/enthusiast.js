@@ -280,7 +280,7 @@ function update_top_movies(start_year, end_year)
         tm = JSON.parse(top_movies.responseJSON)
         h = ''
         for (title in tm['gross']) {
-            var info = $.get('http://www.omdbapi.com/?t=' + title + '&apikey=90424a9e')
+            var info = $.get('https://www.omdbapi.com/?t=' + title + '&apikey=90424a9e')
             promises.push(info)
         }
         $.when.apply(null, promises).done(function(){
