@@ -3,7 +3,6 @@
 {% block title %}exploritory{% endblock %}
 {% block head %}
   {{ super() }}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel='stylesheet' type='text/css' href='static/css/wsw_notebook.css'>
     <link rel='stylesheet' type='text/css' href='static/css/custom.css'>
     
@@ -22,12 +21,7 @@
         </div>
         </div>
         </div>
-<!--     {{ body | safe }} -->
     <script>
-        // $('.output_html').hide()
-        // $('.input_area').hide()
-        // $('.prompt').hide()
-        // $('.output_html').hide()
 var button_html = '<button id="output-html-btn">toggle tables</button> <button id="show-code-btn">toggle code</button>'
 
 $('#buttons').html(button_html)
