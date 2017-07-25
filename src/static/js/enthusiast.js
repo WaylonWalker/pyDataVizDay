@@ -119,10 +119,8 @@ var sentiment_data = {
     },
     bar: {
         width: {
-            ratio: 100 // this makes bar width 50% of length between ticks
+            ratio: 100,
         },
-        // or
-        // width: 100 // this makes bar width 100px
     },
     axis:{rotated:true,
         y:{min:0, max:100, show:false},
@@ -141,7 +139,6 @@ var sentiment_data = {
 
 function update_word_cloud_settings(){
 
-console.log('update')
 if (window.innerWidth > 1000){
     wc_width = 500
     wc_height = 350    
@@ -214,7 +211,6 @@ function update_all(){
 function url_params(base, start_year_val, end_year_val)
 {
 
-    // start_year = typeof start_year_val !== 'undefined' ? start_year.val()
     var start_year_val = typeof start_year_val !== 'undefined' ? start_year_val: start_year.val() 
     var end_year_val = typeof end_year_val !== 'undefined' ? end_year_val: end_year.val()
 
@@ -284,12 +280,10 @@ function update_top_movies(start_year, end_year)
         tm = JSON.parse(top_movies.responseJSON)
         h = ''
         for (title in tm['gross']) {
-            // console.log(title)
             var info = $.get('http://www.omdbapi.com/?t=' + title + '&apikey=90424a9e')
             promises.push(info)
         }
         $.when.apply(null, promises).done(function(){
-            // console.log(promises)
             window.promises = promises
         for (i in promises){
             console.log()
@@ -297,10 +291,7 @@ function update_top_movies(start_year, end_year)
             $('#title-' + i).html(promises[i].responseJSON['Title'])
 
         }
-            // $('#top_movies').html(h)
-            // console.log(h)
 })
-        // console.log(poster(title))
     }
 
                     )
@@ -320,7 +311,6 @@ function update_words_year(year)
   var words = $.get(url)
   words.done(function(data)
   {
-    // $('#word_cloud').html('')
     $('#word_cloud').jQCloud('update', words.responseJSON, update_word_cloud_settings());
     
   })
@@ -345,7 +335,6 @@ function update_sentiment_year(year)
 
 $(window).resize(function(){
   var settings = update_word_cloud_settings()
-  console.log(settings)
   $('#word_cloud').empty();
   $('#word_cloud').jQCloud('destroy')
   $('#word_cloud').jQCloud([{'text':'pyDataVizDay', 'weight':1}], settings)
