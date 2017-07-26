@@ -34,8 +34,6 @@
     ('/enthusiast', 'enthusiast', 'Enthusiast'),
     ('/Exploritory', 'exploritory', 'Exploritory'),
     ('/api/doc/#/pyDataVizDay', 'api', 'api'),
-    ('/slides', 'slides', 'Slides'),
-    ('/slides_light', 'slides_light', 'light slides'),
     ] -%}
     {% set active_page = active_page|default('index') -%}
 
@@ -53,9 +51,20 @@
                 <a href="{{ href|e }}">{{ caption|e }}</a></li>
               {% endfor %}
 
-
+          <li class="dropdown">
+          <a href='/slides' class='active dropdown-toggle navbar-inverse' data-toggle="dropdown">Slides<b class="caret"></b></a>
+          <ul class='dropdown-menu'>
+            <li>
+            <a href='/slides'>dark</a>
+            </li>
+            <li>
+            <a href='/slides_light'>light</a>
+            </li>
+          </ul>
+          </li>
 
           </ul>
+
       </div>
   </div>
 </nav>
@@ -87,7 +96,13 @@
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-
+    <script>
+    $('ul.nav li.dropdown').hover(function() {
+      $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn(200);
+    }, function() {
+      $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(200);
+    });
+    </script>
 
 </html>
 
