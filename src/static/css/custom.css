@@ -46,7 +46,12 @@ pre {
 }
 
 
-
+img.blur {
+    width:367;
+    height:459px;
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+}
 
 /*@keyframes fadein{
     0% { opacity:0; }

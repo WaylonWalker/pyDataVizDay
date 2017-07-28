@@ -87,7 +87,7 @@ var data = {
         $('#year').html(year)
         $('#score').html(score)
         $('#gross').html(gross)
-        $('#top-movies-year').html(' for ' + year)
+        $('.top-movies-year').html(' for ' + year)
         if ((performance.now() - window.last_update)>update_freq)
         {
             window.last_update = performance.now()
@@ -287,7 +287,7 @@ function update_top_movies(start_year, end_year)
             window.promises = promises
         for (i in promises){
             console.log()
-            $('#poster-' + i).html('<img src=' + promises[i].responseJSON['Poster'] + ' width=75%>')
+            $('#poster-' + i).html('<img class=blur src=' + promises[i].responseJSON['Poster'] + ' width=75%>')
             $('#title-' + i).html(promises[i].responseJSON['Title'])
 
         }
