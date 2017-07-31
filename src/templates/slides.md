@@ -25,8 +25,6 @@ Waylon Walker
 
 Product Engineering
 
-
-
 ----
 
 # Open The Viz
@@ -41,19 +39,53 @@ Product Engineering
 
 ----
 
-## Stack for this viz
+## External Resources
 
-* Python
-      * pandas
-      * flask
-* javascript
-      * C3
-      * reveal
-      * jquery
-      * jqcloud
-* HTML
-      * Bootstrap
+---
 
+### Enthusiast
+<div class='container'>
+<div class='row' style='text-align:left; margin:50px'>
+<div class='col-sm-4' style='margin:0px'>
+
+<h4>Python</h4>
+<ul>
+    <li>pandas</li>
+    <li>flask</li>
+    <li>flask_restplus</li>
+    <li>markdown</li>
+</ul>
+</div>
+<div class='col-sm-4' style='margin:0px'>
+
+<h4>javascript</h4>
+<ul>
+    <li>C3</li>
+    <li>reveal</li>
+    <li>jquery</li>
+    <li>jqcloud</li>
+</ul>
+</div>
+<div class='col-sm-4' style='margin:0px'>
+
+<h4>HTML</h4>
+<ul>
+    <li>Bootstrap</li>
+<ul>
+</div>
+</div>
+</div>
+
+---
+
+### Exploritory
+
+Python
+  * jupyter
+  * seaborn
+  * numpy
+  * pandas
+  * sci-kit learn
 
 ----
 
