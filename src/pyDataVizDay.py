@@ -102,8 +102,9 @@ def enthusiast():
 
 @app.route('/Exploritory')
 def exploritory():
-    notebook = render_template('Exploritory_nb.html')
-    return render_template('Exploritory.html', body=notebook)
+    title = render_template('Exploratory_Charts-Movie_Data-Latest_title.html')
+    notebook = render_template('Exploratory_Charts-Movie_Data-Latest.html')
+    return render_template('Exploritory.html', body=title + notebook)
 
 @app.route('/slides')
 def slides():
