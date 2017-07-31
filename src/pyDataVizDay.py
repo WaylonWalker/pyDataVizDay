@@ -14,20 +14,16 @@ from collections import Counter
 from flask import Flask
 from flask import request, render_template, make_response, jsonify, Blueprint, url_for
 from flask_restplus import Resource, Api, fields, reqparse
-from flask_cors import CORS, cross_origin
 import markdown
 from textblob import TextBlob
 
 import settings
 import etl
-import palettes as pal
 
 from iplotter import C3Plotter
 c3 = C3Plotter()
 
 app = Flask(__name__)
-# disq = Disqus(app)
-CORS(app)
 api_blueprint = Blueprint('api', __name__, url_prefix='/api')
 api = Api(api_blueprint, title='pyDataVizday api', 
           default='pyDataVizDay',
