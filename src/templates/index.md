@@ -10,7 +10,7 @@ This site is being used for a capability review of various visualization tools, 
 
 ## Pages
 
-### [Exploritory](/exploritory)
+### [Exploritory](/Exploritory)
 
 This page is python's bread and butter in data science today.  It is able to pull in nearly any type of data set imaginable, transorm, aggregate, and plot very quickly.  This page was built using a [jupyter](jupyter.org) notebook.  This a very powerful tool that allows us to do interactive reproducible data science with all of our data, agregations, visualizations, and slides all in one place.
 
