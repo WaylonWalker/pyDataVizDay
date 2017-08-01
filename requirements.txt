@@ -1,9 +1,7 @@
 flask
-flask-cors
 flask-restplus
 gunicorn
 markdown
 nltk
 pandas
 textblob
--e git+https://github.com/WaylonWalker/iplotter.git@master#egg=iplotter
