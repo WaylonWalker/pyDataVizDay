@@ -1,4 +1,5 @@
 # pyDataVizDay
+---
 *a python implementation for Data Viz Day*
 
 ![python](https://s3.amazonaws.com/files.dezyre.com/images/blog/Python+for+Data+Science+vs.+Python+for+Web+Development/Python+for+Data+Science+vs+Web+Devlopment.png)
@@ -6,10 +7,9 @@
 ----
 
 # Agenda
-
-1. Viz Walk (3 Views)
+---
+1. Viz Walk (2 Views)
     1. Full Web App
-    * Simple Web App
     * Exploritory Notebook
 * Tools Used
 * Other Considerations
@@ -17,8 +17,8 @@
 
 ----
 
-## About Me
-
+# About Me
+---
 ![profile](/static/profile_photo_sm.jpg)
 
 Waylon Walker
@@ -28,7 +28,7 @@ Product Engineering
 ----
 
 # Open The Viz
-
+---
 [pydatavizday.herokuapp.com](pydatavizday.herokuapp.com)
 
 ---
@@ -39,7 +39,7 @@ Product Engineering
 
 ----
 
-## External Resources
+# External Resources
 
 ---
 
@@ -90,10 +90,12 @@ Python
 ----
 
 ## Other Considerations
-
+---
 * Jupyter Notebooks
 * Jupyter Dashboards
 * DASH (just released in mid JUNE)
+* Bokeh
+* Data shader
 
 ---
 
@@ -125,7 +127,7 @@ Python
 ----
 
 ## Pros of Python
-
+---
 * Fast High Level Data Science
 * reusable
 * Powerful Web stack
@@ -142,20 +144,17 @@ python has a vast ecosysytem for data wrangling
 
 ``` python
 import pandas as pd
-import glob, os
 
-path = "C:/reports"
-files = glob.glob(path + os.sep + '*_report.csv*')
+raw_example = pd.read_csv('example_data.csv')
 
-frames = []
-for file in files:
-    frames.append(pd.read_csv(file))
+example = (raw_example
+  .groupby(['Date'])
+  .sum()
+  .resample('m')
+  .fillna(0)
+  )
 
-all_reports = (pd.concat(frames)
-                 .dropna()
-                 .query('DIVISION == ACCOUNTING')
-                 )
-
+example.plot()
 ```
 
 ---
@@ -176,19 +175,23 @@ data.update()
 
 ### Testing
 
-The ability to easily reuse code/datasets/plot gives us the ability to spend time making large projects more .
-
+Well written tests give us the confidence to push to production without manually spending our own time testing each feature of our end product.
 
 ``` python
+import unittest
+import etl
+
 class Testdata(unittest.TestCase):
     """
     Test suite for my dataframe data
     """
+    def setUp(self):
+      self.data = etl.Data()
+      important_cols = ['DATE', 'PRODUCT', 'QTY']
 
     def test_cols(self):
         for col in important_cols:
-            self.assertLess(len(data[data[col].isnull()]), 0, msg=f'column {col} has unexpected null values')
-            self.assertIn(col, data.columns.tolist(), msg=f'column {col} is missing - check the /data/raw/shipments.csv file to ensure logistics has not changed the data format')
+            self.assertIn(col, sdata.columns.tolist())
 
 ```
 
@@ -227,10 +230,9 @@ else:
 ----
 
 ## Cons on python
-
+---
 * Code
 * Interactivity
-* Speed
 * ML research
 
 ---
@@ -241,12 +243,6 @@ else:
 ---
 
 ### Interactive plots are difficult
-
----
-
-### Slow
-
-*slow runtime compared to statically typed languages (c, java)*
 
 ---
 

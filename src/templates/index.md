@@ -29,23 +29,50 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+  """
+  Index page built by converting index.md to html, then inserting that into the index.html template
+
+  go to your base_url + / to view this page
+  """
   body = markdown.markdown(render_template('index.md'), 
                           extensions=['markdown.extensions.fenced_code'])
   return render_template('index.html', body=body)
 
 if __name__ == '__main__':
+    # if this is ran as the main program run the app
+    # if the program is imported it will not run allowing us to reuse some components in other projects easily.
     app.run()
-
 ```
 
+
+#### Javascript
+
+For the Enthusiast  page we need to implement some javascript in order to update the page dynamically without a page refresh We need to implement a bit of javascript that will talk to our api and change the information on the page.  Currently javascript is the only client side scripting language for the browser.  There are a number of languages that can be transpiled into browser ready javascript, but javascript is the only language that run in the browser.
+
+I believe that modern (ES6) is a much better language.  It looks much closer to python than older javascript.  Currently ES6 does not run in many browsers natively and needs to be compiled down to browser ready javascript.  I am trying to keep this project very simple, and did not want a complicated build tool chain.  If you are using javascript more often, or have a more complicated use case do yourself a favor and look into setting up build tools that compile ES6 to browser ready javascript.  For this reason I have chosen to use jquery.  It provides a simple interface into the features that I need, and runs natively in the browser.
+
+```javascript
+$('#top').change(function(){update_kpi()})
+// ties the update function to the top div, and triggers an update any time there is a change in the top div that contains our form data
+
+function update_kpi()
+{
+  var url = '/api/score_timeseries?' + $('top').val()
+  var kpi_data = $.get(url); // gets the json response data from our python api
+  kpi_data.done(function(results) // waits for the response to come back from python
+  {
+    $('#gross').html(results.responseJSON.gross) // updates the gross kpi that sits in the gross div
+    })
+}
+```
 
 ### [Slides](/slides)
 
 Since we are serving up a web app we can embrace the power and flexibility that this gives us.  The slides for this event will be served along side of the visualization.  This will make these slides available anywhere you have a connection to the web.  These slides were written in markdown, and are very simple to write.
 <div class="col6 center"><br></div>
 #### Example Markdown Code for Slides
+This file wil be placed into  a slides.html template that has been setup to render reveal slides from markdown.  The reveal.js web page has examples of how to setup the html.  It will render typical markdown code as html, and will create a new slide at every ```----``` and a new fragment at every ```---```
 ``` markdown
-
 # pyDataVizDay
 *a python implementation for Data Viz Day*
 
@@ -62,7 +89,6 @@ Since we are serving up a web app we can embrace the power and flexibility that 
 * Tools Used
 * Other Considerations
 * Pros/Cons
-
 ```
 
 ### [api](/api/doc/#/pyDataVizDay)
